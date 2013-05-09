@@ -78,7 +78,7 @@ define(
 			drawTriangles( ctx, triangles, color_data );
 			console.timeEnd( 'draw' );
 			console.timeEnd( 'total' );
-			// 
+
 			is_processing = false;
 		}
 
