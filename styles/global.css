@@ -1,0 +1,41 @@
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	padding: 50px;
+	font-family: sans-serif;
+	color: #333;
+	line-height: 20px;
+	font-size: 12px;
+}
+
+a
+{
+	color: #06f;
+	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration: underline;
+}
+
+.headline
+{
+	font-size: 12px;
+}
+
+.article
+{
+	max-width: 650px;
+}
+
+#canvas
+{
+	margin-top: 30px;
+	display: block;
+}

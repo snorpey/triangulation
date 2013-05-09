@@ -3,10 +3,14 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>blur + triangulation test</title>
+		<link rel="stylesheet" href="styles/global.css" />
 	</head>
 	<body>
+		<article class="article">
+			<h1 class="headline">Triangulate Images</h1>
+			<p>Drop an image in this browser window to triangulate it. This script uses the <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation" title="Wikipedia article on Delaunay Triangulation">Delaunay Triangulation</a> algorithm. It is based on the <a href="http://jsdo.it/akm2/xoYx">triangulation image generator</a> and incluses some speed improvements. This experiment was created by <a href="http://fishnation.de">georg</a>. you can follow him on <a href="https://twitter.com/snorpey">twitter</a> &amp; <a href="https://github.com/snorpey/">github</a>.</p>
+		</article>
 		<canvas id="canvas"></canvas>
-		<img src="" id="image" />
 		<script src="scripts/lib/require-2.1.4.js" data-main="scripts/src/main"></script>
 	</body>
 </html>
