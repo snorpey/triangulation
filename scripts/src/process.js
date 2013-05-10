@@ -16,21 +16,40 @@ define(
 		var canvas = document.getElementById( 'canvas' );
 		var ctx = canvas.getContext( '2d' );
 
-		var signals;
 		var is_processing = false;
+		var values;
+		var image;
+		var signals;
 
 		function init( shared )
 		{
 			signals = shared.signals;
 
-			signals[ 'image-loaded' ].add( generate );
+			signals['image-loaded'].add( generate );
+			signals['control-updated'].add( controlsUpdated );
+		}
+
+		function controlsUpdated( new_values )
+		{
+			values = getAdjustedValues( new_values );
+
+			update();
 		}
 
 		function generate( img )
 		{
 			if ( ! is_processing )
 			{
-				processImage( img );
+				image = img;
+				processImage( image );
+			}
+		}
+
+		function update()
+		{
+			if ( ! is_processing && image )
+			{
+				processImage( image );
 			}
 		}
 
@@ -44,41 +63,41 @@ define(
 			resizeCanvas( tmp_canvas, img );
 			resizeCanvas( canvas, img );
 
-			console.time( 'total' );
+			// console.time( 'total' );
 			tmp_ctx.drawImage( img, 0, 0 );
 
 			var image_data = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
 			var color_data = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
 
-			console.time( 'blur' );
-			var blurred_image_data = blur( image_data, 20, false );
-			console.timeEnd( 'blur' );
+			// console.time( 'blur' );
+			var blurred_image_data = blur( image_data, values.blur, false );
+			// console.timeEnd( 'blur' );
 
-			console.time( 'greyscale' );
+			// console.time( 'greyscale' );
 			var greyscale_data = greyscale( image_data );
-			console.timeEnd( 'greyscale' );
+			// console.timeEnd( 'greyscale' );
 
-			console.time( 'detect edges' );
-			var edge_image_data = detectEdges( greyscale_data, 5 );
-			console.timeEnd( 'detect edges' );
+			//console.time( 'detect edges' );
+			var edge_image_data = detectEdges( greyscale_data, values.accuracy, values['edge-size'] );
+			// console.timeEnd( 'detect edges' );
 
-			console.time( 'get edge points' );
-			var edge_points = getEdgePoints( edge_image_data, 10 );
-			console.timeEnd( 'get edge points' );
+			// console.time( 'get edge points' );
+			var edge_points = getEdgePoints( edge_image_data, values['detect-value'], values.accuracy );
+			// console.timeEnd( 'get edge points' );
 
-			console.time( 'get random points' );
-			var edge_vertices = getRandomVertices( edge_points, 0.0045, 1500 );
-			console.timeEnd( 'get random points' );
+			// console.time( 'get random points' );
+			var edge_vertices = getRandomVertices( edge_points, values['point-rate'], values['point-count'] );
+			// console.timeEnd( 'get random points' );
 
-			console.time( 'delauney' );
+			// console.time( 'delauney' );
 			var triangles = triangulate( edge_vertices );
-			console.timeEnd( 'delauney' );
+			// console.timeEnd( 'delauney' );
 
-			console.time( 'draw' );
+			// console.time( 'draw' );
 			drawTriangles( ctx, triangles, color_data );
-			console.timeEnd( 'draw' );
-			console.timeEnd( 'total' );
-			// 
+			// console.timeEnd( 'draw' );
+			// console.timeEnd( 'total' );
+
 			is_processing = false;
 		}
 
@@ -118,6 +137,48 @@ define(
 		function clearCanvas( canvas, ctx )
 		{
 			ctx.clearRect( ctx, 0, 0, canvas.width, canvas.height );
+		}
+
+		function getAdjustedValues( new_values )
+		{
+			var result = { };
+
+			for ( var key in new_values )
+			{
+				switch ( key )
+				{
+					case 'blur' :
+						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 0, 50 ), 10 );
+						break;
+
+					case 'accuracy' :
+						result[key] = scaleRange( new_values[key], 0, 100, 1, 0.1 );
+						break;
+
+					case 'edge-size' :
+						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 1, 10 ), 10 );
+						break;
+
+					case 'detect-value' :
+						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 0, 50 ), 10 );
+						break;
+
+					case 'point-rate' :
+						result[key] = scaleRange( new_values[key], 0, 100, 0.001, 0.1 );
+						break;
+
+					case 'point-count' :
+						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 100, 5000 ), 10 );
+						break;
+				}
+			}
+
+			return result;
+		}
+
+		function scaleRange( value, low_1, high_1, low_2, high_2 )
+		{
+    		return low_2 + ( high_2 - low_2) * ( value - low_1 ) / (high_1 - low_1 );
 		}
 
 		return { init: init };

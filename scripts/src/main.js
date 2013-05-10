@@ -6,9 +6,6 @@ requirejs.config(
 		baseUrl: path + 'scripts/',
 		waitSeconds: 5,
 		urlArgs: 'bust=' +  ( new Date() ).getTime(),
-		paths: {
-			'signals'   : 'lib/signals-1.0.0'
-		},
 		shim: {
 			'lib/delaunay': { exports: 'triangulate' }
 		}
@@ -19,32 +16,52 @@ require(
 	[
 		'src/process',
 		'src/image',
-		'src/ui',
-		'signals'
+		'src/dragdrop',
+		'src/controls',
+		'aux/feature-test',
+		'lib/signals-1.0.0',
+		'lib/html5slider'
 	],
 	function(
 		process,
 		image,
-		ui,
+		dragdrop,
+		controls,
+		testFeatures,
 		Signal
 	)
 	{
-		var shared = {
-			signals: {
-				'image-loaded': new Signal(),
-				'set-new-src' : new Signal()
-			}
-		};
+		testFeatures( init, showError );
 
-		var signals = shared.signals;
-
-		init();
-
-		function init()
+		function init( supported_features )
 		{
+			var shared = {
+				feature: supported_features,
+				signals: {
+					'image-loaded'    : new Signal(),
+					'set-new-src'     : new Signal(),
+					'control-updated' : new Signal()
+				}
+			};
+
 			process.init( shared );
-			ui.init( shared );
+			dragdrop.init( shared );
+			controls.init( shared );
 			image.init( shared );
+		}
+
+		function showError( required_features )
+		{
+			var message = document.createElement( 'div' );
+
+			var message_text = 'sorry. it looks like your browser is missing some of the features ';
+			message_text += '(' + required_features.join( ', ' ) + ') that are required to run this ';
+			message_text += 'experiment.';
+
+			message.innerText = message_text;
+			message.className = 'missing-feature';
+
+			document.getElementsByTagName( 'body' )[0].appendChild( message );
 		}
 	}
 );

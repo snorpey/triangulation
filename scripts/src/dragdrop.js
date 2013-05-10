@@ -4,17 +4,22 @@ define(
 	{
 		var signals;
 		var reader;
+		var feature;
 
 		function init( shared )
 		{
-			reader = new FileReader();
+			feature = shared.feature;
 			signals = shared.signals;
 
-			document.addEventListener( 'drop', dropped, false );
-			document.addEventListener( 'dragover', preventDefault, false );
-			document.addEventListener( 'dragleave', preventDefault, false );
+			if ( feature['drag-drop' ] && feature['file-api' ] )
+			{
+				document.addEventListener( 'drop', dropped, false );
+				document.addEventListener( 'dragover', preventDefault, false );
+				document.addEventListener( 'dragleave', preventDefault, false );
 
-			reader.addEventListener( 'load', fileLoaded, false );
+				reader = new FileReader();
+				reader.addEventListener( 'load', fileLoaded, false );
+			}
 		}
 
 		function preventDefault( event )

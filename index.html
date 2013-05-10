@@ -2,11 +2,41 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>blur + triangulation test</title>
+		<title>image triangulation experiment</title>
+		<link rel="stylesheet" href="styles/global.css" />
 	</head>
 	<body>
+		<article class="content">
+			<h1 class="headline">triangulate images</h1>
+			<p>drop an image in the browser to triangulate it. this script uses the <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation" title="Wikipedia article on Delaunay Triangulation">delaunay triangulation</a> algorithm. it is based on the <a href="http://jsdo.it/akm2/xoYx" title="Triangulation Image Generator on jsdo.it">triangulation image generator</a> and includes some speed improvements. this experiment was created by <a href="http://fishnation.de">georg</a>. you can follow him on <a href="https://twitter.com/snorpey">twitter</a> &amp; <a href="https://github.com/snorpey/">github</a>.</p>
+		</article>
+		<div class="content" id="controls">
+			<div class="control-wrapper">
+				<label class="control-label" for="blur">blur</label>
+				<input class="control-input"type="range" id="blur" min="0" max="100" value="50" />
+			</div>
+			<div class="control-wrapper">
+				<label class="control-label" for="accuracy">accuracy</label>
+				<input class="control-input"type="range" id="accuracy" min="0" max="100" value="50" />
+			</div>
+			<div class="control-wrapper">
+				<label class="control-label" for="edge-size">edge-size</label>
+				<input class="control-input"type="range" id="edge-size" min="0" max="100" value="50" />
+			</div>
+			<div class="control-wrapper">
+				<label class="control-label" for="detect-value">detect value</label>
+				<input class="control-input"type="range" id="detect-value" min="0" max="100" value="50" />
+			</div>
+			<div class="control-wrapper">
+				<label class="control-label" for="point-rate">point rate</label>
+				<input class="control-input"type="range" id="point-rate" min="0" max="100" value="50" />
+			</div>
+			<div class="control-wrapper">
+				<label class="control-label" for="point-count">point count</label>
+				<input class="control-input"type="range" id="point-rate" min="0" max="100" value="50" />
+			</div>
+		</div>
 		<canvas id="canvas"></canvas>
-		<img src="" id="image" />
 		<script src="scripts/lib/require-2.1.4.js" data-main="scripts/src/main"></script>
 	</body>
 </html>
