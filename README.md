@@ -5,14 +5,17 @@ this is an experiment for the web browser. it uses the [delaunay triangulation](
 
 [![triangulation experiment screen shot](http://dl.dropboxusercontent.com/u/1098704/Screenshots/github-triangulation.png)](http://snorpey.github.io/triangulation/)
 
-this experiment is very much based on @akm2's [triangulation image generator](http://jsdo.it/akm2/xoYx) script. it includes several speed enhancements (my aim is to make it fast enough for use with real time streaming input, e.g. from a web cam )
+this experiment is very much based on [triangulation image generator](http://jsdo.it/akm2/xoYx) script. it includes several speed enhancements (my aim is to make it fast enough for use with real time streaming input, e.g. from a web cam )
 
 third party code used in this experiment
 ---
-* some parts of the code code from [triangulation image generator](http://jsdo.it/akm2/xoYx)
-* [delaunay js](https://github.com/ironwallaby/delaunay)
-* [html5slider](http://frankyan.com/labs/html5slider/)
-* [jquery](http://jquery.com)
-* [require js](http://requirejs.org/)
-* [js signals](http://millermedeiros.github.io/js-signals/)
-* [superfast boxblur for canvas](http://www.quasimondo.com/BoxBlurForCanvas)
+* some parts of the code code from [triangulation image generator](http://jsdo.it/akm2/xoYx) by [akm2](http://codepen.io/akm2), MIT license
+* [delaunay js](https://github.com/ironwallaby/delaunay) by [ironwallaby](https://github.com/ironwallaby), public domain
+* [html5slider](http://frankyan.com/labs/html5slider/) by [fryn](https://github.com/fryn), MIT license
+* [js signals](http://millermedeiros.github.io/js-signals/) by [millermedeiros](https://github.com/millermedeiros), MIT license
+* [superfast boxblur for canvas](http://quasimondo.com/BoxBlurForCanvas/FastBlurDemo.html) by [quasimondo](https://github.com/quasimondo), MIT license
+* [require js](http://requirejs.org/), by [jrburke](jrburke), BSD & MIT license
+
+license
+---
+[MIT License](http://www.opensource.org/licenses/mit-license.php)
