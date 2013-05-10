@@ -20,14 +20,6 @@
 				<input class="control-input"type="range" id="accuracy" min="0" max="100" value="50" />
 			</div>
 			<div class="control-wrapper">
-				<label class="control-label" for="edge-size">edge-size</label>
-				<input class="control-input"type="range" id="edge-size" min="0" max="100" value="50" />
-			</div>
-			<div class="control-wrapper">
-				<label class="control-label" for="detect-value">detect value</label>
-				<input class="control-input"type="range" id="detect-value" min="0" max="100" value="50" />
-			</div>
-			<div class="control-wrapper">
 				<label class="control-label" for="point-rate">point rate</label>
 				<input class="control-input"type="range" id="point-rate" min="0" max="100" value="50" />
 			</div>
@@ -35,6 +27,11 @@
 				<label class="control-label" for="point-count">point count</label>
 				<input class="control-input"type="range" id="point-rate" min="0" max="100" value="50" />
 			</div>
+		</div>
+		<div class="export-wrapper">
+			<button id="save-button" class="button">export image</button>
+			<a id="png-button" download="triangulated-image.png" target="_blank" class="download-link">download bitmap file<span> (.png)</span></a>
+			<a id="svg-button" download="triangulated-image.svg" target="_blank" class="download-link">download vector file<span> (.svg)</span></a>
 		</div>
 		<canvas id="canvas"></canvas>
 		<script src="scripts/lib/require-2.1.4.js" data-main="scripts/src/main"></script>

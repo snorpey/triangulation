@@ -20,6 +20,7 @@ define(
 		var values;
 		var image;
 		var signals;
+		var triangles;
 
 		function init( shared )
 		{
@@ -27,6 +28,7 @@ define(
 
 			signals['image-loaded'].add( generate );
 			signals['control-updated'].add( controlsUpdated );
+			signals['saved'].add( exportData );
 		}
 
 		function controlsUpdated( new_values )
@@ -78,11 +80,11 @@ define(
 			// console.timeEnd( 'greyscale' );
 
 			//console.time( 'detect edges' );
-			var edge_image_data = detectEdges( greyscale_data, values.accuracy, values['edge-size'] );
+			var edge_image_data = detectEdges( greyscale_data, values.accuracy, 5 );
 			// console.timeEnd( 'detect edges' );
 
 			// console.time( 'get edge points' );
-			var edge_points = getEdgePoints( edge_image_data, values['detect-value'], values.accuracy );
+			var edge_points = getEdgePoints( edge_image_data, 50, values.accuracy );
 			// console.timeEnd( 'get edge points' );
 
 			// console.time( 'get random points' );
@@ -90,21 +92,22 @@ define(
 			// console.timeEnd( 'get random points' );
 
 			// console.time( 'delauney' );
-			var triangles = triangulate( edge_vertices );
+			var polygons = triangulate( edge_vertices );
 			// console.timeEnd( 'delauney' );
 
+			triangles = getColorfulTriangles( polygons, color_data );
 			// console.time( 'draw' );
-			drawTriangles( ctx, triangles, color_data );
+			drawTriangles( ctx, triangles );
 			// console.timeEnd( 'draw' );
 			// console.timeEnd( 'total' );
 
 			is_processing = false;
 		}
 
-		function drawTriangles( ctx, triangles, color_data )
+		function drawTriangles( ctx, triangles )
 		{
 			var len = triangles.length;
-			var i, triangle, triangle_center_x, triangle_center_y, color_data_index;
+			var i, triangle;
 
 			for ( i = 0; i < len; i++ )
 			{
@@ -116,13 +119,7 @@ define(
 				ctx.lineTo( triangle.c.x, triangle.c.y );
 				ctx.lineTo( triangle.a.x, triangle.a.y );
 
-				// triangle color = color at center of triangle
-				triangle_center_x = ( triangle.a.x + triangle.b.x + triangle.c.x ) * 0.33333;
-				triangle_center_y = ( triangle.a.y + triangle.b.y + triangle.c.y ) * 0.33333;
-
-				color_data_index = ( ( triangle_center_x | 0 ) + ( triangle_center_y | 0 ) * color_data.width ) << 2;
-
-				ctx.fillStyle = 'rgb(' + color_data.data[color_data_index] + ', ' + color_data.data[color_data_index + 1] + ', ' + color_data.data[color_data_index + 2] + ')';
+				ctx.fillStyle = triangle.color;
 				ctx.fill();
 				ctx.closePath();
 			}
@@ -139,6 +136,38 @@ define(
 			ctx.clearRect( ctx, 0, 0, canvas.width, canvas.height );
 		}
 
+		function exportData()
+		{
+			var svg_data = {
+				triangles: triangles,
+				size : { width: canvas.width, height: canvas.height }
+			};
+
+			signals['export-svg'].dispatch( svg_data );
+			signals['export-png'].dispatch( canvas.toDataURL( 'image/png' ) );
+		}
+
+		function getColorfulTriangles( triangles, color_data )
+		{
+			var len = triangles.length;
+			var i, triangle, triangle_center_x, triangle_center_y, pixel;
+
+			for ( i = 0; i < len; i++ )
+			{
+				triangle = triangles[i];
+
+				// triangle color = color at center of triangle
+				triangle_center_x = ( triangle.a.x + triangle.b.x + triangle.c.x ) * 0.33333;
+				triangle_center_y = ( triangle.a.y + triangle.b.y + triangle.c.y ) * 0.33333;
+
+				pixel = ( ( triangle_center_x | 0 ) + ( triangle_center_y | 0 ) * color_data.width ) << 2;
+
+				triangle.color = 'rgb(' + color_data.data[pixel] + ', ' + color_data.data[pixel + 1] + ', ' + color_data.data[pixel + 2] + ')';
+			}
+
+			return triangles;
+		}
+
 		function getAdjustedValues( new_values )
 		{
 			var result = { };
@@ -153,14 +182,6 @@ define(
 
 					case 'accuracy' :
 						result[key] = scaleRange( new_values[key], 0, 100, 1, 0.1 );
-						break;
-
-					case 'edge-size' :
-						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 1, 10 ), 10 );
-						break;
-
-					case 'detect-value' :
-						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 0, 50 ), 10 );
 						break;
 
 					case 'point-rate' :
