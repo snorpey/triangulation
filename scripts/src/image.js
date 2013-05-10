@@ -15,9 +15,9 @@ define(
 
 			image.addEventListener( 'load', imageLoaded, false );
 
-			// "bikes" by snorpey on flickr:
-			// http://flickr.com/photos/snorpey/8700571753/sizes/z/in/photostream/
-			setSrc( 'bikes.jpg' );
+			// the image "Abraham Lincoln November 1863" is public domain:
+			// https://en.wikipedia.org/wiki/File:Abraham_Lincoln_November_1863.jpg
+			setSrc( 'lincoln.jpg' );
 		}
 
 		function imageLoaded()
