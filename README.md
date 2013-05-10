@@ -5,7 +5,7 @@ this is an experiment for the web browser. it uses the [delaunay triangulation](
 
 [![triangulation experiment screen shot](http://dl.dropboxusercontent.com/u/1098704/Screenshots/github-triangulation.png)](http://snorpey.github.io/triangulation/)
 
-this experiment is very much based on @akm2's [triangulation image generator](http://jsdo.it/akm2/xoYx) script. It includes several speed enhancements (my aim is to make it fast enough for use with real time streaming input, e.g. from a web cam )
+this experiment is very much based on @akm2's [triangulation image generator](http://jsdo.it/akm2/xoYx) script. it includes several speed enhancements (my aim is to make it fast enough for use with real time streaming input, e.g. from a web cam )
 
 third party code used in this experiment
 ---
