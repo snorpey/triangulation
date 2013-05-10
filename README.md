@@ -3,7 +3,7 @@ image triangulation experiment
 
 this is an experiment for the web browser. it uses the [delaunay triangulation](https://en.wikipedia.org/wiki/Delaunay_triangulation) algorithm to alter an image.
 
-![triangulation experiment screen shot](http://o7.no/ZyIS1O)
+[![triangulation experiment screen shot](http://dl.dropboxusercontent.com/u/1098704/Screenshots/github-triangulation.png)](http://snorpey.github.io/triangulation/)
 
 this experiment is very much based on @akm2's [triangulation image generator](http://jsdo.it/akm2/xoYx) script. It includes several speed enhancements (my aim is to make it fast enough for use with real time streaming input, e.g. from a web cam )
 
