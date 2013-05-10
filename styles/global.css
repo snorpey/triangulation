@@ -29,13 +29,52 @@ a:hover
 	font-size: 12px;
 }
 
-.article
+.content,
+.missing-feature
 {
 	max-width: 650px;
 }
 
+#controls
+{
+	float: left;
+	margin-top: 30px;
+	display: none;
+}
+
+#controls.is-active
+{
+	display: block;
+}
+
+	.control-wrapper
+	{
+		float: left;
+		width: 100px;
+		margin-right: 20px;
+	}
+
+	.control-label
+	{
+		display: block;
+		color: #666;
+	}
+
+	.control-input
+	{
+		display: block;
+		width: 100px;
+	}
+
 #canvas
 {
+	clear: both;
+	float: left;
 	margin-top: 30px;
 	display: block;
+}
+
+.missing-feature
+{
+	clear: both;
 }
