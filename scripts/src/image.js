@@ -15,7 +15,7 @@ define(
 
 			image.addEventListener( 'load', imageLoaded, false );
 
-			// gf: "bikes" by snorpey on flickr:
+			// "bikes" by snorpey on flickr:
 			// http://flickr.com/photos/snorpey/8700571753/sizes/z/in/photostream/
 			setSrc( 'bikes.jpg' );
 		}
