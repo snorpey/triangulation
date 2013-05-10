@@ -18,6 +18,9 @@ require(
 		'src/image',
 		'src/dragdrop',
 		'src/controls',
+		'src/export-svg',
+		'src/export-png',
+		'src/save-button',
 		'aux/feature-test',
 		'lib/signals-1.0.0',
 		'lib/html5slider'
@@ -27,6 +30,9 @@ require(
 		image,
 		dragdrop,
 		controls,
+		svg,
+		png,
+		save_button,
 		testFeatures,
 		Signal
 	)
@@ -40,13 +46,19 @@ require(
 				signals: {
 					'image-loaded'    : new Signal(),
 					'set-new-src'     : new Signal(),
-					'control-updated' : new Signal()
+					'control-updated' : new Signal(),
+					'export-png'      : new Signal(),
+					'export-svg'      : new Signal(),
+					'saved'           : new Signal()
 				}
 			};
 
 			process.init( shared );
 			dragdrop.init( shared );
 			controls.init( shared );
+			svg.init( shared );
+			png.init( shared );
+			save_button.init( shared );
 			image.init( shared );
 		}
 
