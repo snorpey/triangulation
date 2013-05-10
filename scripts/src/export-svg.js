@@ -10,12 +10,15 @@ define(
 		{
 			signals = shared.signals;
 
-			signals['export-svg'].add( generateSVG );
-			signals['control-updated'].add( hideLink );
+			if ( shared.feature['file-api' ] )
+			{
+				signals['export-svg'].add( generateSVG );
+				signals['control-updated'].add( hideLink );
 
-			svg_button = document.getElementById( 'svg-button' );
+				svg_button = document.getElementById( 'svg-button' );
 
-			svg_button.addEventListener( 'click', hideLink, false );
+				svg_button.addEventListener( 'click', hideLink, false );
+			}
 		}
 
 		function generateSVG( data )
