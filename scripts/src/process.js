@@ -20,6 +20,7 @@ define(
 		var values;
 		var image;
 		var signals;
+		var triangles;
 
 		function init( shared )
 		{
@@ -27,6 +28,7 @@ define(
 
 			signals['image-loaded'].add( generate );
 			signals['control-updated'].add( controlsUpdated );
+			signals['saved'].add( exportData );
 		}
 
 		function controlsUpdated( new_values )
@@ -90,21 +92,22 @@ define(
 			// console.timeEnd( 'get random points' );
 
 			// console.time( 'delauney' );
-			var triangles = triangulate( edge_vertices );
+			var polygons = triangulate( edge_vertices );
 			// console.timeEnd( 'delauney' );
 
+			triangles = getColorfulTriangles( polygons, color_data );
 			// console.time( 'draw' );
-			drawTriangles( ctx, triangles, color_data );
+			drawTriangles( ctx, triangles );
 			// console.timeEnd( 'draw' );
 			// console.timeEnd( 'total' );
 
 			is_processing = false;
 		}
 
-		function drawTriangles( ctx, triangles, color_data )
+		function drawTriangles( ctx, triangles )
 		{
 			var len = triangles.length;
-			var i, triangle, triangle_center_x, triangle_center_y, color_data_index;
+			var i, triangle;
 
 			for ( i = 0; i < len; i++ )
 			{
@@ -116,13 +119,7 @@ define(
 				ctx.lineTo( triangle.c.x, triangle.c.y );
 				ctx.lineTo( triangle.a.x, triangle.a.y );
 
-				// triangle color = color at center of triangle
-				triangle_center_x = ( triangle.a.x + triangle.b.x + triangle.c.x ) * 0.33333;
-				triangle_center_y = ( triangle.a.y + triangle.b.y + triangle.c.y ) * 0.33333;
-
-				color_data_index = ( ( triangle_center_x | 0 ) + ( triangle_center_y | 0 ) * color_data.width ) << 2;
-
-				ctx.fillStyle = 'rgb(' + color_data.data[color_data_index] + ', ' + color_data.data[color_data_index + 1] + ', ' + color_data.data[color_data_index + 2] + ')';
+				ctx.fillStyle = triangle.color;
 				ctx.fill();
 				ctx.closePath();
 			}
@@ -137,6 +134,38 @@ define(
 		function clearCanvas( canvas, ctx )
 		{
 			ctx.clearRect( ctx, 0, 0, canvas.width, canvas.height );
+		}
+
+		function exportData()
+		{
+			var svg_data = {
+				triangles: triangles,
+				size : { width: canvas.width, height: canvas.height }
+			};
+
+			signals['export-svg'].dispatch( svg_data );
+			signals['export-png'].dispatch( canvas.toDataURL( 'image/png' ) );
+		}
+
+		function getColorfulTriangles( triangles, color_data )
+		{
+			var len = triangles.length;
+			var i, triangle, triangle_center_x, triangle_center_y, pixel;
+
+			for ( i = 0; i < len; i++ )
+			{
+				triangle = triangles[i];
+
+				// triangle color = color at center of triangle
+				triangle_center_x = ( triangle.a.x + triangle.b.x + triangle.c.x ) * 0.33333;
+				triangle_center_y = ( triangle.a.y + triangle.b.y + triangle.c.y ) * 0.33333;
+
+				pixel = ( ( triangle_center_x | 0 ) + ( triangle_center_y | 0 ) * color_data.width ) << 2;
+
+				triangle.color = 'rgb(' + color_data.data[pixel] + ', ' + color_data.data[pixel + 1] + ', ' + color_data.data[pixel + 2] + ')';
+			}
+
+			return triangles;
 		}
 
 		function getAdjustedValues( new_values )
