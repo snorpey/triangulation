@@ -7,9 +7,9 @@ define(
 		/**
 		 * @see http://jsdo.it/akm2/iMsL
 		 */
-		function detectEdges( image_data, accuracy, divisor )
+		function detectEdges( image_data, accuracy, edge_size, divisor )
 		{
-			var matrix = getEdgeMatrix( 5 ).slice();
+			var matrix = getEdgeMatrix( edge_size ).slice();
 			var multiplier = parseInt( ( accuracy || 0.5 ) * 10, 10 ) || 1;
 
 			divisor = divisor || 1;
