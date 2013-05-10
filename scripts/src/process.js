@@ -80,11 +80,11 @@ define(
 			// console.timeEnd( 'greyscale' );
 
 			//console.time( 'detect edges' );
-			var edge_image_data = detectEdges( greyscale_data, values.accuracy, values['edge-size'] );
+			var edge_image_data = detectEdges( greyscale_data, values.accuracy, 5 );
 			// console.timeEnd( 'detect edges' );
 
 			// console.time( 'get edge points' );
-			var edge_points = getEdgePoints( edge_image_data, values['detect-value'], values.accuracy );
+			var edge_points = getEdgePoints( edge_image_data, 50, values.accuracy );
 			// console.timeEnd( 'get edge points' );
 
 			// console.time( 'get random points' );
@@ -182,14 +182,6 @@ define(
 
 					case 'accuracy' :
 						result[key] = scaleRange( new_values[key], 0, 100, 1, 0.1 );
-						break;
-
-					case 'edge-size' :
-						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 1, 10 ), 10 );
-						break;
-
-					case 'detect-value' :
-						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 0, 50 ), 10 );
 						break;
 
 					case 'point-rate' :
