@@ -8,8 +8,8 @@ body
 {
 	padding: 50px;
 	font-family: sans-serif;
-	color: #333;
-	line-height: 20px;
+	color: #666;
+	line-height: 18px;
 	font-size: 12px;
 }
 
@@ -48,6 +48,8 @@ a:hover
 .headline
 {
 	font-size: 12px;
+	color: #333;
+	margin-bottom: 10px;
 }
 
 .content,
