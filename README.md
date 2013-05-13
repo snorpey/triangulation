@@ -7,6 +7,8 @@ this is an experiment for the web browser. it uses the [delaunay triangulation](
 
 this experiment is very much based on the [triangulation image generator](http://jsdo.it/akm2/xoYx) script. it includes several speed enhancements. it is my goal to make it fast enough for use with real time streaming input, e.g. from a [web cam](https://github.com/snorpey/photobooth).
 
+you can fine another experiment that applies the the triangulation to text input here: [http://snorpey.github.io/text-triangulation/](http://snorpey.github.io/text-triangulation/)
+
 third party code used in this experiment
 ---
 * some parts of the code code from [triangulation image generator](http://jsdo.it/akm2/xoYx) by [akm2](http://codepen.io/akm2), MIT license
