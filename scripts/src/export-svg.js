@@ -63,8 +63,6 @@ define(
 
 			svg += '</svg>';
 
-			console.log( svg );
-
 			return svg;
 		}
 
