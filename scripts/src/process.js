@@ -83,15 +83,29 @@ define(
 
 			tmp_ctx.drawImage( img, 0, 0 );
 
-			image_data = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
-			color_data = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
+			// get the image data
+			image_data         = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
+
+			// since the image data is blurred and greyscaled later on,
+			// we need another copy of the image data with preserved colors
+			color_data         = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
+
+			// blur the imagedata using superfast blur by @quasimondo
+			// not very accurate, but fast
 			blurred_image_data = blur( image_data, values.blur, false );
-			greyscale_data = greyscale( image_data );
-			edge_image_data = detectEdges( greyscale_data, values.accuracy, 5 );
-			edge_points = getEdgePoints( edge_image_data, 50, values.accuracy );
-			edge_vertices = getRandomVertices( edge_points, values['point-rate'], values['point-count'] );
-			polygons = triangulate( edge_vertices );
-			triangles = getColorfulTriangles( polygons, color_data );
+
+			greyscale_data     = greyscale( image_data );
+			edge_image_data    = detectEdges( greyscale_data, values.accuracy, 5 );
+
+			// gets some of the edge points to construct triangles
+			edge_points        = getEdgePoints( edge_image_data, 50, values.accuracy );
+			edge_vertices      = getRandomVertices( edge_points, values['point-rate'], values['point-count'] );
+
+			// makes triangles out of points
+			polygons           = triangulate( edge_vertices );
+
+			// get the color for every triangle
+			triangles          = getColorfulTriangles( polygons, color_data );
 
 			drawTriangles( ctx, triangles );
 
