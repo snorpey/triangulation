@@ -5,6 +5,7 @@ define(
 		var values = { };
 		var is_initialized = false;
 		var signals;
+		var timeout_id;
 
 		function init( shared )
 		{
@@ -35,7 +36,15 @@ define(
 		{
 			var target = event.target;
 
-			updateValue( target.id, target.value );
+			clearTimeout( timeout_id );
+
+			timeout_id = setTimeout(
+				function()
+				{
+					updateValue( target.id, target.value );
+				},
+				200
+			);
 		}
 
 		function updateValue( key, value )
