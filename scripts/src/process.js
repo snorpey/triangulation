@@ -20,7 +20,23 @@ define(
 		var values;
 		var image;
 		var signals;
+
 		var triangles;
+		var triangle;
+
+		var image_data;
+		var color_data;
+		var blurred_image_data;
+		var greyscale_data;
+		var edge_image_data;
+		var edge_points;
+		var edge_vertices;
+		var polygons;
+
+		var len;
+		var i;
+
+		var triangle_center_x, triangle_center_y, pixel;
 
 		function init( shared )
 		{
@@ -65,49 +81,26 @@ define(
 			resizeCanvas( tmp_canvas, img );
 			resizeCanvas( canvas, img );
 
-			// console.time( 'total' );
 			tmp_ctx.drawImage( img, 0, 0 );
 
-			var image_data = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
-			var color_data = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
-
-			// console.time( 'blur' );
-			var blurred_image_data = blur( image_data, values.blur, false );
-			// console.timeEnd( 'blur' );
-
-			// console.time( 'greyscale' );
-			var greyscale_data = greyscale( image_data );
-			// console.timeEnd( 'greyscale' );
-
-			//console.time( 'detect edges' );
-			var edge_image_data = detectEdges( greyscale_data, values.accuracy, 5 );
-			// console.timeEnd( 'detect edges' );
-
-			// console.time( 'get edge points' );
-			var edge_points = getEdgePoints( edge_image_data, 50, values.accuracy );
-			// console.timeEnd( 'get edge points' );
-
-			// console.time( 'get random points' );
-			var edge_vertices = getRandomVertices( edge_points, values['point-rate'], values['point-count'] );
-			// console.timeEnd( 'get random points' );
-
-			// console.time( 'delauney' );
-			var polygons = triangulate( edge_vertices );
-			// console.timeEnd( 'delauney' );
-
+			image_data = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
+			color_data = tmp_ctx.getImageData( 0, 0, tmp_canvas.width, tmp_canvas.height );
+			blurred_image_data = blur( image_data, values.blur, false );
+			greyscale_data = greyscale( image_data );
+			edge_image_data = detectEdges( greyscale_data, values.accuracy, 5 );
+			edge_points = getEdgePoints( edge_image_data, 50, values.accuracy );
+			edge_vertices = getRandomVertices( edge_points, values['point-rate'], values['point-count'] );
+			polygons = triangulate( edge_vertices );
 			triangles = getColorfulTriangles( polygons, color_data );
-			// console.time( 'draw' );
+
 			drawTriangles( ctx, triangles );
-			// console.timeEnd( 'draw' );
-			// console.timeEnd( 'total' );
 
 			is_processing = false;
 		}
 
 		function drawTriangles( ctx, triangles )
 		{
-			var len = triangles.length;
-			var i, triangle;
+			len = triangles.length;
 
 			for ( i = 0; i < len; i++ )
 			{
@@ -149,8 +142,7 @@ define(
 
 		function getColorfulTriangles( triangles, color_data )
 		{
-			var len = triangles.length;
-			var i, triangle, triangle_center_x, triangle_center_y, pixel;
+			len = triangles.length;
 
 			for ( i = 0; i < len; i++ )
 			{
@@ -199,7 +191,7 @@ define(
 
 		function scaleRange( value, low_1, high_1, low_2, high_2 )
 		{
-    		return low_2 + ( high_2 - low_2) * ( value - low_1 ) / (high_1 - low_1 );
+			return low_2 + ( high_2 - low_2) * ( value - low_1 ) / (high_1 - low_1 );
 		}
 
 		return { init: init };
