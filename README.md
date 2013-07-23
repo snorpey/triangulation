@@ -22,4 +22,4 @@ third party code used in this experiment
 
 license
 ---
-[MIT License](http://www.opensource.org/licenses/mit-license.php)
+[MIT License](LICENSE)
