@@ -9,7 +9,7 @@ this is an experiment for the web browser. it uses the [delaunay triangulation](
 
 this experiment is very much based on the [triangulation image generator](http://jsdo.it/akm2/xoYx) script. it includes several speed enhancements. it is my goal to make it fast enough for use with real time streaming input, e.g. from a [web cam](https://github.com/snorpey/photobooth).
 
-you can fine another experiment that applies the the triangulation to text input here: [http://snorpey.github.io/text-triangulation/](http://snorpey.github.io/text-triangulation/)
+you can find another experiment that applies the the triangulation to text input here: [http://snorpey.github.io/text-triangulation/](http://snorpey.github.io/text-triangulation/)
 
 third party code used in this experiment
 ---
@@ -22,4 +22,4 @@ third party code used in this experiment
 
 license
 ---
-[MIT License](http://www.opensource.org/licenses/mit-license.php)
+[MIT License](LICENSE)
