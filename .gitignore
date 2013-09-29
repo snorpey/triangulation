@@ -26,3 +26,6 @@ $RECYCLE.BIN/
 
 # grunt
 build/node_modules/
+
+# production
+production/
