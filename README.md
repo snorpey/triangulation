@@ -11,11 +11,22 @@ this experiment is very much based on the [triangulation image generator](http:/
 
 you can find another experiment that applies the the triangulation to text input here: [http://snorpey.github.io/text-triangulation/](http://snorpey.github.io/text-triangulation/)
 
+
+build script
+---
+
+the build script takes care of concatenating and minifying all scripts and styles. it uses [gruntjs](http://gruntjs.com/).
+
+please make sure that both [nodejs](http://nodejs.org/) and grunt-cli are [set up properly](http://gruntjs.com/getting-started) on your machine.
+
+run ```npm install``` from within the ```build/``` folder to install the dependencies of the build script.
+
+to build, run ```grunt production``` from within the ```build/``` folder. the optimized files will get copied to the ```production/``` folder.
+
 third party code used in this experiment
 ---
 * some parts of the code code from [triangulation image generator](http://jsdo.it/akm2/xoYx) by [akm2](http://codepen.io/akm2), MIT license
 * [delaunay js](https://github.com/ironwallaby/delaunay) by [ironwallaby](https://github.com/ironwallaby), public domain
-* [html5slider](http://frankyan.com/labs/html5slider/) by [fryn](https://github.com/fryn), MIT license
 * [js signals](http://millermedeiros.github.io/js-signals/) by [millermedeiros](https://github.com/millermedeiros), MIT license
 * [superfast boxblur for canvas](http://quasimondo.com/BoxBlurForCanvas/FastBlurDemo.html) by [quasimondo](https://github.com/quasimondo), MIT license
 * [require js](http://requirejs.org/), by [jrburke](jrburke), BSD & MIT license
