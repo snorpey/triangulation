@@ -21,9 +21,8 @@ require(
 		'src/export-svg',
 		'src/export-png',
 		'src/save-button',
-		'aux/feature-test',
-		'lib/signals-1.0.0',
-		'lib/html5slider'
+		'util/feature-test',
+		'lib/signals-1.0.0'
 	],
 	function(
 		process,
@@ -47,6 +46,7 @@ require(
 					'image-loaded'    : new Signal(),
 					'set-new-src'     : new Signal(),
 					'control-updated' : new Signal(),
+					'control-set'     : new Signal(),
 					'export-png'      : new Signal(),
 					'export-svg'      : new Signal(),
 					'saved'           : new Signal()
