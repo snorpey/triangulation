@@ -22,8 +22,7 @@ require(
 		'src/export-png',
 		'src/save-button',
 		'util/feature-test',
-		'lib/signals-1.0.0',
-		'lib/html5slider'
+		'lib/signals-1.0.0'
 	],
 	function(
 		process,
