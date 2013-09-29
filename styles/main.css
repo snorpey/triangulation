@@ -107,13 +107,19 @@ a:hover
 		font-family: sans-serif;
 	}
 
-#canvas
+.canvas-wrapper
 {
+	width: 100%;
 	clear: both;
 	float: left;
 	margin-top: 30px;
-	display: block;
+
 }
+	#canvas
+	{
+		display: block;
+		max-width: 100%;
+	}
 
 .export-wrapper
 {
