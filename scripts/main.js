@@ -46,6 +46,7 @@ require(
 					'image-loaded'    : new Signal(),
 					'set-new-src'     : new Signal(),
 					'control-updated' : new Signal(),
+					'control-set'     : new Signal(),
 					'export-png'      : new Signal(),
 					'export-svg'      : new Signal(),
 					'saved'           : new Signal()
