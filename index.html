@@ -3,30 +3,34 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>image triangulation experiment</title>
-		<link rel="stylesheet" href="styles/global.css" />
+		<link rel="stylesheet" href="styles/main.css" />
 	</head>
 	<body>
 		<article class="content">
 			<h1 class="headline">triangulate images</h1>
 			<p>drop an image in the browser to triangulate it. this script uses the <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation" title="Wikipedia article on Delaunay Triangulation">delaunay triangulation</a> algorithm. it is based on the <a href="http://jsdo.it/akm2/xoYx" title="Triangulation Image Generator on jsdo.it">triangulation image generator</a> and includes some speed improvements. this experiment was created by <a href="http://fishnation.de">georg</a>. you can follow him on <a href="https://twitter.com/snorpey">twitter</a> or explore the source code on <a href="https://github.com/snorpey/triangulation">github</a>.</p>
-			<p>if you like this one, you can check out some of his other javascript experiments <a href="http://snorpey.github.io/experiments/">github</a>.</p>
+			<p>if you like this one, you can check out some of his other javascript experiments on <a href="http://snorpey.github.io/experiments/">github</a>.</p>
 		</article>
 		<div class="content" id="controls">
 			<div class="control-wrapper">
-				<label class="control-label" for="blur">blur</label>
-				<input class="control-input" type="range" id="blur" min="0" max="100" value="50" />
+				<label class="control-label" for="blur-number">blur</label>
+				<input class="control-input control-number" id="blur-number" type="number" min="0" max="99" value="50" maxlength="2" />
+				<input class="control-input control-slider" id="blur-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
 			</div>
 			<div class="control-wrapper">
-				<label class="control-label" for="accuracy">accuracy</label>
-				<input class="control-input" type="range" id="accuracy" min="0" max="100" value="50" />
+				<label class="control-label" for="accuracy-number">accuracy</label>
+				<input class="control-input control-number" id="accuracy-number" type="number" min="0" max="99" value="50" maxlength="2" />
+				<input class="control-input control-slider" id="accuracy-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
 			</div>
 			<div class="control-wrapper">
-				<label class="control-label" for="point-rate">point rate</label>
-				<input class="control-input" type="range" id="point-rate" min="0" max="100" value="50" />
+				<label class="control-label" for="point-rate-number">point rate</label>
+				<input class="control-input control-number" id="point-rate-number" type="number" min="0" max="99" value="50" maxlength="2" />
+				<input class="control-input control-slider" id="point-rate-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
 			</div>
 			<div class="control-wrapper">
 				<label class="control-label" for="point-count">point count</label>
-				<input class="control-input" type="range" id="point-rate" min="0" max="100" value="50" />
+				<input class="control-input control-number" id="point-count-number" type="number" min="0" max="99" value="50" maxlength="2" />
+				<input class="control-input control-slider" id="point-count-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
 			</div>
 		</div>
 		<div class="export-wrapper">
@@ -34,7 +38,9 @@
 			<a id="png-button" download="triangulated-image.png" target="_blank" class="download-link">download bitmap file<span> (.png)</span></a>
 			<a id="svg-button" download="triangulated-image.svg" target="_blank" class="download-link">download vector file<span> (.svg)</span></a>
 		</div>
-		<canvas id="canvas"></canvas>
-		<script src="scripts/lib/require-2.1.4.js" data-main="scripts/src/main"></script>
+		<div class="canvas-wrapper">
+			<canvas id="canvas"></canvas>
+		</div>
+		<script src="scripts/lib/require-2.1.4.js" data-main="scripts/main"></script>
 	</body>
 </html>

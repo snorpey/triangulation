@@ -3,10 +3,10 @@ define(
 	[
 		'lib/superfast-blur.0.5',
 		'lib/delaunay',
-		'aux/detect-edges',
-		'aux/get-edge-points',
-		'aux/get-random-vertices',
-		'aux/greyscale'
+		'util/detect-edges',
+		'util/get-edge-points',
+		'util/get-random-vertices',
+		'util/greyscale'
 	],
 	function( blur, triangulate, detectEdges, getEdgePoints, getRandomVertices, greyscale )
 	{
