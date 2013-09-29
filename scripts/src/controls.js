@@ -6,6 +6,7 @@ define(
 		var is_initialized = false;
 		var signals;
 		var controls;
+		var timeout_id;
 
 		function init( shared )
 		{
@@ -42,8 +43,16 @@ define(
 				element = element.target;
 			}
 
-			updateValue( getInputKey( element.id ), element.value );
-			updateInput( getCorrespondingInput( element.id ), element.value );
+			clearTimeout( timeout_id );
+
+			timeout_id = setTimeout(
+				function()
+				{
+					updateValue( getInputKey( element.id ), element.value );
+					updateInput( getCorrespondingInput( element.id ), element.value );
+				},
+				200
+			);
 		}
 
 		function setControlValues( new_values )
