@@ -4,11 +4,8 @@ var path = typeof _basepath_ === 'string' ? _basepath_ + '/' : '';
 requirejs.config(
 	{
 		baseUrl: path + 'scripts/',
-		waitSeconds: 5,
-		urlArgs: 'bust=' +  ( new Date() ).getTime(),
-		shim: {
-			'lib/delaunay': { exports: 'triangulate' }
-		}
+		waitSeconds: 50,
+		urlArgs: 'bust=' +  ( new Date() ).getTime()
 	}
 );
 
@@ -16,22 +13,28 @@ require(
 	[
 		'src/process',
 		'src/image',
+		'src/file',
 		'src/dragdrop',
 		'src/controls',
-		'src/export-svg',
-		'src/export-png',
-		'src/save-button',
+		'src/export-button',
+		'src/import-button',
+		'src/random-button',
+		'src/upload-imgur',
+		'src/intro',
 		'util/feature-test',
 		'lib/signals-1.0.0'
 	],
 	function(
 		process,
 		image,
+		file,
 		dragdrop,
 		controls,
-		svg,
-		png,
-		save_button,
+		export_button,
+		import_button,
+		random_button,
+		imgur,
+		intro,
 		testFeatures,
 		Signal
 	)
@@ -43,23 +46,26 @@ require(
 			var shared = {
 				feature: supported_features,
 				signals: {
-					'image-loaded'    : new Signal(),
-					'set-new-src'     : new Signal(),
-					'control-updated' : new Signal(),
-					'control-set'     : new Signal(),
-					'export-png'      : new Signal(),
-					'export-svg'      : new Signal(),
-					'saved'           : new Signal()
+					'load-file'        : new Signal(),
+					'image-loaded'     : new Signal(),
+					'set-new-src'      : new Signal(),
+					'control-set'      : new Signal(),
+					'control-updated'  : new Signal(),
+					'close-intro'      : new Signal(),
+					'export-requested' : new Signal()
 				}
 			};
 
 			process.init( shared );
 			dragdrop.init( shared );
 			controls.init( shared );
-			svg.init( shared );
-			png.init( shared );
-			save_button.init( shared );
+			export_button.init( shared );
+			import_button.init( shared );
+			random_button.init( shared );
 			image.init( shared );
+			file.init( shared );
+			imgur.init( shared );
+			intro.init( shared );
 		}
 
 		function showError( required_features )

@@ -44,7 +44,7 @@ define(
 
 			signals['image-loaded'].add( generate );
 			signals['control-updated'].add( controlsUpdated );
-			signals['saved'].add( exportData );
+			signals['export-requested'].add( exportData );
 		}
 
 		function controlsUpdated( new_values )
@@ -143,15 +143,20 @@ define(
 			ctx.clearRect( ctx, 0, 0, canvas.width, canvas.height );
 		}
 
-		function exportData()
+		function exportData( callback )
 		{
-			var svg_data = {
-				triangles: triangles,
-				size : { width: canvas.width, height: canvas.height }
-			};
+			if ( typeof callback === 'function' )
+			{
+				var export_data = {
+					png: canvas.toDataURL( 'image/png' ),
+					svg: {
+						triangles: triangles,
+						size : { width: canvas.width, height: canvas.height }
+					}
+				};
 
-			signals['export-svg'].dispatch( svg_data );
-			signals['export-png'].dispatch( canvas.toDataURL( 'image/png' ) );
+				callback( export_data );
+			}
 		}
 
 		function getColorfulTriangles( triangles, color_data )
