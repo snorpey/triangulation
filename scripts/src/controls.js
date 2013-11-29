@@ -8,6 +8,8 @@ define(
 		var controls;
 		var timeout_id;
 
+		var is_blocked = false;
+
 		function init( shared )
 		{
 			signals = shared.signals;
@@ -23,7 +25,7 @@ define(
 				{
 					var control = controls[i];
 
-					control.addEventListener( 'input', controlUpdated, false );
+					control.addEventListener( 'change', controlUpdated, false );
 
 					updateValue( getInputKey( control.id ), control.value );
 					updateInput( getCorrespondingInput( control.id ), control.value );
@@ -38,20 +40,20 @@ define(
 
 		function controlUpdated( element )
 		{
-			if ( element.target )
-			{
-				element = element.target;
-			}
-
 			clearTimeout( timeout_id );
-
+			
 			timeout_id = setTimeout(
 				function()
 				{
+					if ( element.target )
+					{
+						element = element.target;
+					}
+
 					updateValue( getInputKey( element.id ), element.value );
 					updateInput( getCorrespondingInput( element.id ), element.value );
 				},
-				200
+				100
 			);
 		}
 
