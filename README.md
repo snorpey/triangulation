@@ -30,6 +30,7 @@ third party code used in this experiment
 * [js signals](http://millermedeiros.github.io/js-signals/) by [millermedeiros](https://github.com/millermedeiros), MIT license
 * [superfast boxblur for canvas](http://quasimondo.com/BoxBlurForCanvas/FastBlurDemo.html) by [quasimondo](https://github.com/quasimondo), MIT license
 * [require js](http://requirejs.org/), by [jrburke](jrburke), BSD & MIT license
+* [reqwest js](https://github.com/ded/reqwest/), by [ded](https://github.com/ded), MIT license
 
 license
 ---
