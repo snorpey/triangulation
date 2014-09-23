@@ -87,7 +87,7 @@ define(
 				twitter_share_url_text += ' http://snorpey.github.io/triangulation';
 
 				//http://ar.zu.my/how-to-really-customize-the-deprecated-facebook-sharer-dot-php/
-				var facebook_share_url = 'http://www.facebook.com/sharer.php?s=100';
+				var facebook_share_url = 'https://www.facebook.com/sharer/sharer.php?s=100';
 				facebook_share_url += '&p[url]=' + response.data.link;
 				facebook_share_url += '&p[title]=Triangles!';
 				facebook_share_url += '&p[images][0]=' + response.data.link;
@@ -100,7 +100,7 @@ define(
 
 				twitter_link.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent( twitter_share_url_text );
 				facebook_link.href = facebook_share_url;
-				reddit_link.href = 'http://www.reddit.com/submit?url=' + encodeURIComponent( response.data.link ) + '&title=Triangles!';
+				reddit_link.href = 'https://www.reddit.com/submit?url=' + encodeURIComponent( response.data.link ) + '&title=Triangles!';
 			}
 			
 			else
