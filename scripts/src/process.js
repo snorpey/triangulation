@@ -99,7 +99,7 @@ define(
 
 			// gets some of the edge points to construct triangles
 			edge_points        = getEdgePoints( edge_image_data, 50, values.accuracy );
-			edge_vertices      = getRandomVertices( edge_points, values['point-rate'], values['point-count'] );
+			edge_vertices      = getRandomVertices( edge_points, values['point-rate'], values['point-count'], values.accuracy, tmp_canvas.width, tmp_canvas.height );
 
 			// makes triangles out of points
 			polygons           = triangulate( edge_vertices );

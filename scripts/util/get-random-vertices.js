@@ -4,7 +4,7 @@
 define(
 	function()
 	{
-		function getRandomVertices( points, rate, max_num )
+		function getRandomVertices( points, rate, max_num, accuracy, width, height )
 		{
 			var j;
 			var result = [ ];
@@ -32,6 +32,24 @@ define(
 				t_len--;
 				i++;
 			}
+
+			var x, y;
+
+			// gf: add more points along the edges so we always use the full canvas,
+			for ( x = 0; x < width; x += (100 - accuracy) )
+			{
+				result.push( { x: ~~x, y: 0 } );
+				result.push( { x: ~~x, y: height } );
+			}
+
+			for ( y = 0; y < height; y += (100 - accuracy) )
+			{
+				result.push( { x: 0, y: ~~y } );
+				result.push( { x: width, y: ~~y } );
+			}
+
+			result.push( { x: 0, y: height } );
+			result.push( { x: width, y: height } );
 
 			return result;
 		}
