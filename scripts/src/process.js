@@ -156,7 +156,7 @@ define(
 					png: canvas.toDataURL( 'image/png' ),
 					svg: {
 						triangles: triangles,
-						size : { width: canvas.width, height: canvas.height }
+						size : { width: canvas.width / pxratio, height: canvas.height / pxratio }
 					}
 				};
 
