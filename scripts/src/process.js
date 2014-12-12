@@ -38,6 +38,8 @@ define(
 
 		var triangle_center_x, triangle_center_y, pixel;
 
+		var pxratio = ( window.devicePixelRatio && window.devicePixelRatio > 1 ) ? window.devicePixelRatio : 1;
+
 		function init( shared )
 		{
 			signals = shared.signals;
@@ -78,8 +80,8 @@ define(
 			clearCanvas( tmp_canvas, tmp_ctx );
 			clearCanvas( canvas, ctx );
 
-			resizeCanvas( tmp_canvas, img );
-			resizeCanvas( canvas, img );
+			resizeCanvas( tmp_canvas, img, pxratio );
+			resizeCanvas( canvas, img, pxratio );
 
 			tmp_ctx.drawImage( img, 0, 0 );
 
@@ -121,10 +123,10 @@ define(
 				triangle = triangles[i];
 
 				ctx.beginPath();
-				ctx.moveTo( triangle.a.x, triangle.a.y );
-				ctx.lineTo( triangle.b.x, triangle.b.y );
-				ctx.lineTo( triangle.c.x, triangle.c.y );
-				ctx.lineTo( triangle.a.x, triangle.a.y );
+				ctx.moveTo( triangle.a.x * pxratio, triangle.a.y * pxratio );
+				ctx.lineTo( triangle.b.x * pxratio, triangle.b.y * pxratio );
+				ctx.lineTo( triangle.c.x * pxratio, triangle.c.y * pxratio );
+				ctx.lineTo( triangle.a.x * pxratio, triangle.a.y * pxratio );
 
 				ctx.fillStyle = triangle.color;
 				ctx.fill();
@@ -132,10 +134,13 @@ define(
 			}
 		}
 
-		function resizeCanvas( canvas, img )
+		function resizeCanvas( canvas, img, ratio )
 		{
-			canvas.width = img.width;
-			canvas.height = img.height;
+			canvas.width = img.width * ratio;
+			canvas.height = img.height * ratio;
+
+			canvas.style.width = ( canvas.width / ratio ) + 'px';
+			canvas.style.height = ( canvas.height / ratio ) + 'px';
 		}
 
 		function clearCanvas( canvas, ctx )
