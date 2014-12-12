@@ -3,7 +3,7 @@ define(
 	[ 'lib/getusermedia' ],
 	function ()
 	{
-		var cam_button_el;
+		var cam_button_el = document.getElementById( 'cam-button' );
 		var video_wrapper_el;
 		var video_el;
 		var stream;
@@ -18,12 +18,8 @@ define(
 			signals = shared.signals;
 
 			if ( navigator.getUserMedia ) {
-				cam_button_el = document.createElement( 'button' );
-				cam_button_el.classList.add( 'button' );
+				cam_button_el.classList.add( 'is-supported' );
 				cam_button_el.addEventListener( 'click', camButtonClicked );
-				cam_button_el.textContent = 'make photo';
-
-				document.querySelector( '.export-wrapper' ).appendChild( cam_button_el );
 
 				video_wrapper_el = document.createElement( 'div' );
 				video_wrapper_el.classList.add( 'cam-wrapper' );
@@ -96,6 +92,8 @@ define(
 		}
 
 		function videoClicked ( event ) {
+			ctx.translate( canvas_el.width, 0 );
+			ctx.scale( -1, 1 );
 			ctx.drawImage( video_el, 0, 0 );
 
 			var data = ctx.getImageData( 0, 0, canvas_el.width, canvas_el.height );
@@ -104,7 +102,7 @@ define(
 			video_wrapper_el.classList.remove( 'is-active' );
 
 			signals['set-new-src'].dispatch( image_src );
-			
+
 			setTimeout( function() { stream.stop(); }, 500 );
 		}
 

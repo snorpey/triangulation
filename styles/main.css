@@ -318,6 +318,14 @@ a:hover {
 	max-width: 100%;
 }
 
+#cam-button {
+	display: none;
+}
+
+#cam-button.is-supported {
+	display: inline-block;
+}
+
 .cam-wrapper {
 	width: 100%;
 	height: 0;
@@ -341,6 +349,7 @@ a:hover {
 	left: 50%;
 	margin-left: -43px;
 	cursor: pointer;
+	z-index: 3;
 }
 
 .cam {
@@ -350,6 +359,7 @@ a:hover {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 68px;
+	transform: scalex(-1);
 }
 
 @media all and (max-width: 860px) {
