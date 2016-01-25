@@ -106,7 +106,7 @@ define(
 				switch ( key )
 				{
 					case 'blur' :
-						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 0, 50 ), 10 );
+						result[key] = parseInt( scaleRange( new_values[key], 0, 100, 1, 100 ), 10 );
 						break;
 
 					case 'accuracy' :
