@@ -65,7 +65,7 @@ define(
 			for ( var id in new_values )
 			{
 				control = getCorrespondingInput( id );
-				control.value = new_values[id];
+				setInputValue( control, new_values[id] );
 				controlUpdated( control );
 				updated_values[ getInputKey( id ) ] = new_values[id];
 			}
@@ -90,10 +90,7 @@ define(
 		{
 			if ( input && getInputValue( input ) !== value && typeof value !== 'undefined' )
 			{
-				if ( input.type === 'checkbox' ) {
-				} else {
-					input.value = value;
-				}
+				setInputValue( input, value );
 			}
 		}
 
@@ -136,12 +133,22 @@ define(
 			return id.replace( '-slider', '' ).replace( '-number', '' ).replace( '-input', '' );
 		}
 
+		function setInputValue ( input, value ) {
+			input[getValueAttr( input )] = value;
+		}
+
 		function getInputValue( input )
 		{
+			return input[getValueAttr( input )];
+		}
+
+		function getValueAttr( input )
+		{
 			if ( input.type === 'checkbox' ) {
-				return input.checked;
-			} else {
-				return input.value;
+				return 'checked'
+			}
+			else {
+				return 'value';
 			}
 		}
 

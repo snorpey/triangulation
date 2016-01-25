@@ -4,6 +4,7 @@ define(
 	{
 		var signals;
 		var controls;
+		var checkboxes;
 		var random_button;
 		var constraints = { };
 
@@ -14,6 +15,8 @@ define(
 			if ( shared.feature['query-selector-all'] )
 			{
 				controls = document.querySelectorAll( '.control-slider' );
+				checkboxes = document.querySelectorAll( '.checkbox' );
+				
 				constraints = getConstraints( controls );
 				random_button = document.getElementById( 'random-button' );
 
@@ -32,11 +35,17 @@ define(
 		{
 			var new_values = { };
 			var constraint;
+			var checkbox;
 
 			for ( var id in constraints )
 			{
 				constraint = constraints[id];
 				new_values[id] = getRandomInt( constraint.min, constraint.max );
+			}
+
+			for ( var i = 0, len = checkboxes.length; i < len; i++ ) {
+				checkbox = checkboxes[i];
+				new_values[checkbox.id] = Math.random() > 0.5;
 			}
 
 			signals['control-set'].dispatch( new_values );
