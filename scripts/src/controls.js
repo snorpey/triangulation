@@ -27,8 +27,8 @@ define(
 
 					control.addEventListener( 'change', controlUpdated, false );
 
-					updateValue( getInputKey( control.id ), control.value );
-					updateInput( getCorrespondingInput( control.id ), control.value );
+					updateValue( getInputKey( control.id ), getInputValue( control ) );
+					updateInput( getCorrespondingInput( control.id ), getInputValue( control ) );
 				}
 
 				is_initialized = true;
@@ -50,8 +50,8 @@ define(
 						element = element.target;
 					}
 
-					updateValue( getInputKey( element.id ), element.value );
-					updateInput( getCorrespondingInput( element.id ), element.value );
+					updateValue( getInputKey( element.id ), getInputValue( element ) );
+					updateInput( getCorrespondingInput( element.id ), getInputValue( element ) );
 				},
 				100
 			);
@@ -76,19 +76,24 @@ define(
 
 		function updateValue( key, value )
 		{
-			values[key] = value;
-
-			if ( is_initialized )
-			{
-				signals['control-updated'].dispatch( values );
+			if ( typeof value !== 'undefined' ) {
+				values[key] = value;
+				
+				if ( is_initialized )
+				{
+					signals['control-updated'].dispatch( values );
+				}
 			}
 		}
 
 		function updateInput( input, value )
 		{
-			if ( input.value !== value )
+			if ( input && getInputValue( input ) !== value && typeof value !== 'undefined' )
 			{
-				input.value = value;
+				if ( input.type === 'checkbox' ) {
+				} else {
+					input.value = value;
+				}
 			}
 		}
 
@@ -101,14 +106,25 @@ define(
 			for ( var i = 0, len = controls.length; i < len; i++ )
 			{
 				element_id = controls[i].id;
-
-				if (
-					element_id !== id &&
-					element_id.indexOf( key ) !== -1
-				)
+					
+				if ( element_id.indexOf( key ) !== -1 )
 				{
-					result = controls[i];
-					break;
+					if ( controls[i].type === 'checkbox' )
+					{
+						if ( element_id === id )
+						{
+							result = controls[i];
+							break;
+						}
+					}
+					
+					else {
+						if ( element_id !== id )
+						{
+							result = controls[i];
+							break;
+						}
+					}
 				}
 			}
 
@@ -117,7 +133,16 @@ define(
 
 		function getInputKey( id )
 		{
-			return id.replace( '-slider', '' ).replace( '-number', '' );
+			return id.replace( '-slider', '' ).replace( '-number', '' ).replace( '-input', '' );
+		}
+
+		function getInputValue( input )
+		{
+			if ( input.type === 'checkbox' ) {
+				return input.checked;
+			} else {
+				return input.value;
+			}
 		}
 
 		return { init: init };
