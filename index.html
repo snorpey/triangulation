@@ -31,23 +31,26 @@
 			<div class="content center" id="controls">
 				<div class="control-wrapper">
 					<label class="control-label" for="blur-number">blur</label>
-					<input class="control-input control-number" id="blur-number" type="number" min="0" max="99" value="50" maxlength="2" />
-					<input class="control-input control-slider" id="blur-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+					<input class="control-input control-number number" id="blur-number" type="number" min="0" max="99" value="50" maxlength="2" />
+					<input class="control-input control-slider slider" id="blur-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
 				</div>
 				<div class="control-wrapper">
 					<label class="control-label" for="accuracy-number">accuracy</label>
-					<input class="control-input control-number" id="accuracy-number" type="number" min="0" max="99" value="50" maxlength="2" />
-					<input class="control-input control-slider" id="accuracy-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+					<input class="control-input control-number number" id="accuracy-number" type="number" min="0" max="99" value="50" maxlength="2" />
+					<input class="control-input control-slider slider" id="accuracy-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
 				</div>
 				<div class="control-wrapper">
-					<label class="control-label" for="point-rate-number">point rate</label>
-					<input class="control-input control-number" id="point-rate-number" type="number" min="0" max="99" value="50" maxlength="2" />
-					<input class="control-input control-slider" id="point-rate-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+					<label class="control-label" for="vertex-count">point count</label>
+					<input class="control-input control-number number" id="vertex-count-number" type="number" min="0" max="99" value="50" maxlength="2" />
+					<input class="control-input control-slider slider" id="vertex-count-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
 				</div>
 				<div class="control-wrapper">
-					<label class="control-label" for="point-count">point count</label>
-					<input class="control-input control-number" id="point-count-number" type="number" min="0" max="99" value="50" maxlength="2" />
-					<input class="control-input control-slider" id="point-count-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+					<label class="control-label" for="stroke-width">stroke width</label>
+					<input class="control-input control-number number" id="stroke-width-number" type="number" min="0" max="99" value="1" maxlength="2" />
+					<input class="control-input control-slider slider" id="stroke-width-slider" type="range" min="0" max="99" value="1" step="1" maxlength="2" />
+				</div>
+				<div class="control-wrapper">
+					<label class="control-label" for="fill-input"><input class="control-input" type="checkbox" id="fill-input" checked="checked" /> fill polygons</label>
 				</div>
 				<button id="random-button" class="button is-hidden">randomise</button>
 			</div>
