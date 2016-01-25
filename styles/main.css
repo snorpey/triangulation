@@ -87,7 +87,7 @@ a:hover {
 
 #random-button {
 	position: relative;
-	top: 6px;
+	top: -4px;
 }
 
 .headline {
@@ -152,16 +152,16 @@ a:hover {
 
 .control-wrapper {
 	display: inline-block;
-	width: 160px;
+	width: 120px;
 	margin-right: 20px;
 }
 
 .control-label {
-	font-size: 11px;
+	max-width: 90px;
+	float: left;
 	display: block;
+	font-size: 11px;
 	color: #666;
-	text-align: center;
-	max-width: 120px;
 }
 
 .control-slider {
@@ -197,7 +197,7 @@ a:hover {
 
 .download-link.is-active {
 	display: inline-block;
-	margin-left: 15px;
+	margin-left: 5px;
 }
 
 .download-link span {
