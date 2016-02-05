@@ -1,7 +1,7 @@
 /*global define*/
 define(
 	[
-		'lib/triangulate-image'
+		'lib/triangulate-image-with-polyfills'
 	],
 	function( triangulate )
 	{
@@ -59,8 +59,12 @@ define(
 			clearCanvas( canvas, ctx );
 			resizeCanvas( canvas, img, pxratio );
 						
-			triangulated_image_data = triangulate( values ).fromImage( img ).toImageData( { dpr: pxratio } );
-			updateCanvas( ctx, triangulated_image_data );
+			triangulate( values )
+				.fromImage( img )
+				.toImageData( { dpr: pxratio } )
+				.then( function ( triangulated_image_data ) {
+					updateCanvas( ctx, triangulated_image_data );
+				} );
 
 			is_processing = false;
 		}
@@ -88,12 +92,17 @@ define(
 		{
 			if ( typeof callback === 'function' )
 			{
-				var export_data = {
-					png: canvas.toDataURL( 'image/png' ),
-					svg: triangulate( values ).fromImage( image ).toSVG()
-				};
+				triangulate( values )
+					.fromImage( image )
+					.toSVG()
+					.then( function ( svg_markup ) {
+						var export_data = {
+							png: canvas.toDataURL( 'image/png' ),
+							svg: svg_markup
+						};
 
-				callback( export_data );
+						callback( export_data );
+					} );
 			}
 		}
 
