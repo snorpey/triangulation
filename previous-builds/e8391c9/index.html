@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>image triangulation experiment</title>
+		<link rel="stylesheet" href="styles/main.min.css" />
+	</head>
+	<body data-defaultimage="lincoln.jpg">
+		<div class="nav-wrapper dark-bg">
+			<div class="export-wrapper center">
+				<h1 class="headline">triangulate images</h1>
+				<button id="cam-button" class="button" title="take photo with you web cam">take photo</button>
+				<button id="import-button" class="button" title="open image from your computer">open image</button>
+				<input type="file" id="import-input" accept="image/*" />
+				<button id="export-button" class="button">download image</button>
+				<button id="imgur-button" class="button" title="share image via imgur.com"><span>share image</span></button>
+				<a id="png-link" download="triangulated-image.png" target="_blank" class="download-link">download bitmap<span> (.png)</span></a>
+				<a id="svg-link" download="triangulated-image.svg" target="_blank" class="download-link">download vector<span> (.svg)</span></a>
+				<div id="imgur-url-container">
+					<input id="imgur-url-input" type="text" readonly="readonly" />
+					<a id="imgur-url-link" class="button social-link" href="https://imgur.com/" target="_blank">open</a>
+					<a id="twitter-link" class="button social-link" href="https://twitter.com/" target="_blank" title="post your image on twitter">twitter</a>
+					<a id="facebook-link" class="button social-link" href="https://www.facebook.com/" target="_blank" title="post your image on facebook">facebook</a>
+					<a id="reddit-link" class="button social-link" href="https://www.reddit.com/" target="_blank" title="post your image on reddit">reddit</a>
+					<span id="imgur-url-error">sorry, something went wrong. maybe try again?</span>
+				</div>
+				<button class="intro-button button is-active">?</button>
+			</div>
+		</div>
+		<div class="nav-wrapper light-bg">
+			<div class="content center" id="controls">
+				<div class="control-wrapper">
+					<label class="control-label" for="blur-number">blur</label>
+					<input class="control-input control-number" id="blur-number" type="number" min="0" max="99" value="50" maxlength="2" />
+					<input class="control-input control-slider" id="blur-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+				</div>
+				<div class="control-wrapper">
+					<label class="control-label" for="accuracy-number">accuracy</label>
+					<input class="control-input control-number" id="accuracy-number" type="number" min="0" max="99" value="50" maxlength="2" />
+					<input class="control-input control-slider" id="accuracy-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+				</div>
+				<div class="control-wrapper">
+					<label class="control-label" for="point-rate-number">point rate</label>
+					<input class="control-input control-number" id="point-rate-number" type="number" min="0" max="99" value="50" maxlength="2" />
+					<input class="control-input control-slider" id="point-rate-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+				</div>
+				<div class="control-wrapper">
+					<label class="control-label" for="point-count">point count</label>
+					<input class="control-input control-number" id="point-count-number" type="number" min="0" max="99" value="50" maxlength="2" />
+					<input class="control-input control-slider" id="point-count-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+				</div>
+				<button id="random-button" class="button is-hidden">randomise</button>
+			</div>
+		</div>
+
+		<div class="canvas-wrapper">
+			<canvas id="canvas"></canvas>
+			<article class="content intro is-active">
+				<div class="center">
+					<p>drop an image in the browser to triangulate it.</p>
+					<p>this script uses the <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation" title="Wikipedia article on Delaunay Triangulation">delaunay triangulation</a> algorithm. it is based on the <a href="http://jsdo.it/akm2/xoYx" title="Triangulation Image Generator on jsdo.it">triangulation image generator</a> and includes some speed improvements. this experiment was created by <a href="http://fishnation.de">georg</a>. you can follow him on <a href="https://twitter.com/snorpey">twitter</a> or explore the source code on <a href="https://github.com/snorpey/triangulation">github</a>.</p>
+					<p>if you like this one, you can check out some of his other javascript experiments on <a href="http://snorpey.github.io/experiments/">github</a>.</p>
+					<button class="close">✕</button>
+				</div>
+			</article>
+		</div>
+		<script src="scripts/main.min.js"></script>
+	</body>
+</html>
