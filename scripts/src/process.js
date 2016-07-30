@@ -59,8 +59,9 @@ define(
 			clearCanvas( canvas, ctx );
 			resizeCanvas( canvas, img, pxratio );
 						
-			triangulated_image_data = triangulate( values ).fromImage( img ).toImageData( { dpr: pxratio } );
-			updateCanvas( ctx, triangulated_image_data );
+			triangulate( values ).fromImage( img ).toImageData( { dpr: pxratio } ).then( function(triangulated_image_data) {
+				updateCanvas( ctx, triangulated_image_data );
+			});
 
 			is_processing = false;
 		}
@@ -90,7 +91,7 @@ define(
 			{
 				var export_data = {
 					png: canvas.toDataURL( 'image/png' ),
-					svg: triangulate( values ).fromImage( image ).toSVG()
+					svg: triangulate( values ).fromImageSync( image ).toSVGSync()
 				};
 
 				callback( export_data );
