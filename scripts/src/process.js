@@ -58,7 +58,7 @@ define(
 			is_processing = true;
 			clearCanvas( canvas, ctx );
 			resizeCanvas( canvas, img, pxratio );
-						
+			
 			triangulate( values )
 				.fromImage( img )
 				.toImageData( { dpr: pxratio } )
@@ -92,17 +92,12 @@ define(
 		{
 			if ( typeof callback === 'function' )
 			{
-				triangulate( values )
-					.fromImage( image )
-					.toSVG()
-					.then( function ( svg_markup ) {
-						var export_data = {
-							png: canvas.toDataURL( 'image/png' ),
-							svg: svg_markup
-						};
+				var export_data = {
+					png: canvas.toDataURL( 'image/png' ),
+					svg: triangulate( values ).fromImageSync( image ).toSVGSync()
+				};
 
-						callback( export_data );
-					} );
+				callback( export_data );
 			}
 		}
 
