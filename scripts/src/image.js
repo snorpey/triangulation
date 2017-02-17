@@ -5,6 +5,7 @@ define(
 		var signals;
 		var image;
 		var initialized = false;
+		var defaultimage = document.body.getAttribute( 'data-defaultimage' );
 
 		function init( shared )
 		{
@@ -15,14 +16,19 @@ define(
 
 			image.addEventListener( 'load', imageLoaded, false );
 
-			// gf: "bikes" by snorpey on flickr:
-			// http://flickr.com/photos/snorpey/8700571753/sizes/z/in/photostream/
-			setSrc( 'bikes.jpg' );
+			// the image "Abraham Lincoln November 1863" is public domain:
+			// https://en.wikipedia.org/wiki/File:Abraham_Lincoln_November_1863.jpg
+			setSrc( defaultimage );
 		}
 
 		function imageLoaded()
 		{
 			signals['image-loaded'].dispatch( image );
+
+			if ( initialized ) {
+				signals['close-intro'].dispatch();
+			}
+
 			initialized = true;
 		}
 
@@ -36,7 +42,7 @@ define(
 				image.naturalWidth !== 0
 			)
 			{
-				signals['image-loaded'].dispatch( image );
+				setTimeout( imageLoaded, 10 );
 			}
 		}
 
