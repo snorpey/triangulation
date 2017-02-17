@@ -459,7 +459,7 @@
                         defStr += '\n	<linearGradient id="gradient-' + index + '" x1="' + x1 + '%" y1="' + y1 + '%" x2="' + x2 + '%" y2="' + y2 + '%">';
                         var lastColorIndex = polygon.gradient.colors.length - 1;
                         polygon.gradient.colors.forEach(function(color, index) {
-                            var rgb = 'rgb(' + color.r + ', ' + color.g + ', ' + color.b + ')', offset = (index / lastColorIndex * 100).toFixed(3);
+                            var rgb = '#' + ("00" + (color.r).toString(16)).substr(-2) + ("00" + (color.g).toString(16)).substr(-2) + ("00" + (color.b).toString(16)).substr(-2) , offset = (index / lastColorIndex * 100).toFixed(3);
                             defStr += '\n					<stop offset="' + offset + '%" stop-color="' + rgb + '"/>\n				';
                         }), defStr += '</linearGradient>', polygonStr += ' fill="url(#gradient-' + index + ')"', 
                         polygon.strokeWidth > 0 && (polygonStr += ' stroke="url(#gradient-' + index + ')" stroke-width="' + polygon.strokeWidth + '" stroke-linejoin="' + polygon.lineJoin + '"');
