@@ -123,6 +123,8 @@ define(
 				}
 
 				result.fill = !! new_values.fill;
+				result.gradients = !! new_values.gradients;
+				result.gradientStops = 2;
 
 				result.strokeWidth = scaleRange( new_values['stroke-width'], 0, 100, 0, 100 );
 			}
