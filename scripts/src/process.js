@@ -1,7 +1,7 @@
 /*global define*/
 define(
 	[
-		'lib/triangulate-image-with-polyfills'
+		'lib/triangulate-image-browser-with-polyfills'
 	],
 	function( triangulate )
 	{
