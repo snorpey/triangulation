@@ -1,8 +1,22 @@
 // http://gruntjs.com/configuring-tasks
 module.exports = function( grunt )
 {
+	var date = new Date();
+	var date_str = date
+		.toISOString()
+		.split('.')[0]
+		.replace(/-/g, '')
+		.replace('T','_')
+		.split(':')
+		.slice(0, 2)
+		.join('');
+
+	var distPath = '../dist/' + date_str + '/';
+	var inline_import_files = { };
+	inline_import_files[distPath + 'styles/main.min.css'] = [ '../styles/main.css' ];
+
 	var grunt_configuration = {
-		pkg: grunt.file.readJSON( 'package.json' ),
+		pkg: grunt.file.readJSON( '../package.json' ),
 		requirejs: {
 			index: {
 				options: {
@@ -10,23 +24,21 @@ module.exports = function( grunt )
 					include: 'main',
 					baseUrl: '../scripts/',
 					mainConfigFile: '../scripts/main.js',
-					out: '../production/scripts/main.min.js',
+					out: distPath + 'scripts/main.min.js',
 					wrap: true
 				}
 			}
 		},
 		cssmin: {
 			inline_import: {
-				files: {
-					'../production/styles/main.min.css': [ '../styles/main.css' ]
-				}
+				files: inline_import_files
 			}
 		},
 		copy: {
 			copy_html: {
 				options: { processContent: updateHTML },
 				files: [
-					{ src: [ '../index.html' ], dest: '../production/index.html' }
+					{ src: [ '../index.html' ], dest: distPath + 'index.html' }
 				]
 			}
 		},
@@ -37,8 +49,8 @@ module.exports = function( grunt )
 					{
 						expand: true,
 						cwd: '../',
-						src: [ '**/*.jpg', '!**/production/**', '!**/node_modules/**' ],
-						dest: '../production/',
+						src: [ '**/*.jpg', '!**/dist/**', '!**/node_modules/**' ],
+						dest: distPath,
 						ext: '.jpg'
 					}
 				]

@@ -25,7 +25,8 @@ $RECYCLE.BIN/
 *.sublime-workspace
 
 # grunt
-build/node_modules/
+node_modules/
 
 # production
 production/
+dist/
