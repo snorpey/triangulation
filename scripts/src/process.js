@@ -7,6 +7,8 @@ define(
 	{
 		var canvas = document.getElementById( 'canvas' );
 		var ctx = canvas.getContext( '2d' );
+		var canvas_wrapper_el = document.querySelector( '.canvas-wrapper' );
+		var processing_indicator_el;
 
 		var is_processing = false;
 		var values;
@@ -27,6 +29,12 @@ define(
 			signals['image-loaded'].add( generate );
 			signals['control-updated'].add( controlsUpdated );
 			signals['export-requested'].add( exportData );
+
+			processing_indicator_el = document.createElement( 'div' );
+			processing_indicator_el.textContent = 'generating image…';
+			processing_indicator_el.classList.add( 'processing-indicator' );
+
+			canvas_wrapper_el.appendChild( processing_indicator_el );
 		}
 
 		function controlsUpdated( new_values )
@@ -56,6 +64,7 @@ define(
 		function processImage( img )
 		{
 			is_processing = true;
+			updateProcessingDisplay();
 			clearCanvas( canvas, ctx );
 			resizeCanvas( canvas, img, pxratio );
 			
@@ -64,9 +73,9 @@ define(
 				.toImageData( { dpr: pxratio } )
 				.then( function ( triangulated_image_data ) {
 					updateCanvas( ctx, triangulated_image_data );
+					is_processing = false;
+					updateProcessingDisplay();
 				} );
-
-			is_processing = false;
 		}
 
 		function updateCanvas ( ctx, image_data )
@@ -135,6 +144,16 @@ define(
 		function scaleRange( value, low_1, high_1, low_2, high_2 )
 		{
 			return low_2 + ( high_2 - low_2) * ( value - low_1 ) / (high_1 - low_1 );
+		}
+
+		function updateProcessingDisplay () {
+			if ( is_processing && ! processing_indicator_el.classList.contains( 'is-visible' ) ) {
+				processing_indicator_el.classList.add( 'is-visible' )
+			}
+
+			if ( ! is_processing && processing_indicator_el.classList.contains( 'is-visible' ) ) {
+				processing_indicator_el.classList.remove( 'is-visible' )
+			}
 		}
 
 		return { init: init };

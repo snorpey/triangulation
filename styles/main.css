@@ -182,7 +182,8 @@ a:hover {
 	color: #333;
 	float: right;
 	border: none;
-	max-width: 30px;
+	max-width: 50px;
+	text-align: right;
 	font-family: sans-serif;
 	background-color: transparent;
 }
@@ -375,5 +376,48 @@ a:hover {
 	.button
 	{
 		margin-bottom: 5px;
+	}
+}
+
+.processing-indicator {
+	position: absolute;
+	top:  50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	padding: 30px 60px;
+	background-color: rgba(255, 255, 255, 0.8);
+	font-size: 30px;
+	display: none;
+}
+
+.processing-indicator.is-visible {
+	display: block;
+}
+
+.processing-indicator.is-visible::after {
+	content: '';
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background-color: currentcolor;
+	margin-left: 30px;
+	animation-duration: 3s;
+  	animation-name: load;
+  	animation-iteration-count: infinite;
+  	position: relative;
+  	top: 5px;
+}
+
+@keyframes load {
+	0% {
+		transform: scaleX(0) scaleY(1);
+	}
+
+	50% {
+		transform: scaleX(1) scaleY(0);
+	}
+
+	100% {
+		transform: scaleX(0) scaleY(1);
 	}
 }
