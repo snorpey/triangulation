@@ -6,7 +6,7 @@ const UglifyJS = require( 'uglify-js' );
 const replace = require( '@rollup/plugin-replace' );
 const mkdirp = require( 'mkdirp' );
 const glob = require( 'glob' );
-const ssri = require( 'ssri' );
+// const ssri = require( 'ssri' );
 
 const date = new Date();
 const dateStr = date
@@ -58,25 +58,25 @@ function build ( srcPath, distPath, moduleName, mainJSFile ) {
 		.all( jsBuilds.map( jsBuildParams => buildJS( jsBuildParams ) ) )
 		.then( () => processCSSFile( cssFilePath ) )
 		.then( stylesStr => {
-			const ssriOptions = { algorithms: [ 'sha512' ] };
+			// const ssriOptions = { algorithms: [ 'sha512' ] };
 			
-			return Promise.all( [
-				ssri.fromStream( fs.createReadStream( path.join( distPath, es5OutputFileName ) ), ssriOptions ),
-				ssri.fromStream( fs.createReadStream( path.join( distPath, es6OutputFileName ) ), ssriOptions )
-			] )
-			.then( ( [ es5Integrity, es6Integrity ] ) => {				
-				return {
-					es5Hash: es5Integrity.sha512[0].source,
-					es6Hash: es6Integrity.sha512[0].source,
-					stylesStr
-				};
-			} );
+			// return Promise.all( [
+			// 	ssri.fromStream( fs.createReadStream( path.join( distPath, es5OutputFileName ) ), ssriOptions ),
+			// 	ssri.fromStream( fs.createReadStream( path.join( distPath, es6OutputFileName ) ), ssriOptions )
+			// ] )
+			// .then( ( [ es5Integrity, es6Integrity ] ) => {				
+			// 	return {
+			// 		es5Hash: '', //es5Integrity.sha512[0].source,
+			// 		es6Hash: '', //es6Integrity.sha512[0].source,
+			// 		stylesStr
+			// 	};
+			// } );
 		} )
-		.then( ( { stylesStr, es5Hash, es6Hash } ) => {
+		.then( ( { stylesStr/*, es5Hash, es6Hash*/ } ) => {
 			const htmlReplacements = {
 				'<script src="assets/js/main.js" type="module"></script>': `
-		<script src="${ es6OutputFileName }" type="module" integrity="${es6Hash}"></script>
-		<script nomodule src="${ es5OutputFileName }" integrity="${es5Hash}"></script>`,
+		<script src="${ es6OutputFileName }" type="module"></script>
+		<script nomodule src="${ es5OutputFileName }"></script>`,
 				'<link rel="stylesheet" href="assets/css/stylesheet.css" />': `<style>${stylesStr}</style>`
 			};
 
