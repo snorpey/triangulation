@@ -1,0 +1,23 @@
+.sn-input {
+	display: inline-flex;
+	padding: 0 var(--size-2_5);
+	background-color: var(--color--background);
+	color: var(--color--foreground);
+	border: none;
+	border-radius: var(--size-0_25);
+	overflow: hidden;
+	align-items: center;
+	height: var(--size-5);
+	text-decoration: none;
+}
+
+.sn-input--stretch {
+	width: 100%;
+}
+
+.sn-input--hidden {
+	position: absolute;
+	left: -1000px;
+	top: -1000px;
+	opacity: 0;
+}

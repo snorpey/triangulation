@@ -2,11 +2,373 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>blur + triangulation test</title>
+		<title>Image Triangulation</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Triangulate your image" />
+		<meta name="image" content="assets/img/triangulate-645.jpg" />
+		<meta itemprop="name" content="Image Triangulation" />
+		<meta itemprop="description" content="Generate a triangulated version of your image" />
+		<meta itemprop="image" content="assets/img/triangulate-645.jpg" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="Image Triangulation" />
+		<meta name="twitter:description" content="Triangulate your image" />
+		<meta name="twitter:creator" content="@snorpey" />
+		<meta name="twitter:image:src" content="assets/img/triangulate-1025_512.jpg" />
+		<meta name="og:title" content="Image Triangulation" />
+		<meta name="og:description" content="Triangulate your image" />
+		<meta name="og:image" content="assets/img/triangulate-1200_630.jpg" />
+		<meta name="og:url" content="https://snorpey.github.io/triangulation/" />
+		<meta name="og:site_name" content="Image Triangulation" />
+		<meta name="og:type" content="website" />
+		<meta name="msapplication-TileColor" content="#ffffff" />
+		<meta name="msapplication-config" content="assets/browserconfig.xml" />
+		<meta name="theme-color" content="#ffffff" />
+		<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
+		<link rel="manifest" href="manifest.json" />
+		<link rel="mask-icon" href="assets/img/safari-pinned-tab.svg" color="#5bbad5" />
+		<link rel="shortcut icon" href="assets/img/favicon.ico" />
+		<link rel="stylesheet" href="assets/css/stylesheet.css" />
 	</head>
-	<body>
-		<canvas id="canvas"></canvas>
-		<img src="" id="image" />
-		<script src="scripts/lib/require-2.1.4.js" data-main="scripts/src/main"></script>
+	<body data-defaultimage="assets/img/lincoln.jpg">
+		<input type="checkbox" class="sn-btn__toggle-input sn-collapsible__input sn-input--hidden" id="is-showing-download" />
+		<input type="checkbox" class="sn-btn__toggle-input sn-input--hidden" id="is-showing-share" />
+		<input type="checkbox" class="sn-btn__toggle-input sn-input--hidden" id="is-showing-intro" />
+		<input type="checkbox" class="sn-btn__toggle-input sn-input--hidden" id="is-showing-controls" checked="true" />
+		<input type="file" id="import-input" class="sn-input sn-input--hidden" accept="image/*" />
+		<div class="sn-app">
+			<div class="sn-header">
+				<div class="sn-header__item sn-header__item--primary sn-text">
+					<h1 class="">triangulate images</h1>
+				</div>
+				<div class="sn-header__item">
+					<div class="sn-toolbar">
+						<div class="sn-toolbar__line">
+							<label
+								for="is-showing-controls"
+								class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label"
+								title="toggle controls"
+							>
+								<svg class="sn-btn__icon" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M3,17V19H9V17H3M3,5V7H13V5H3M13,21V19H21V17H13V15H11V21H13M7,9V11H3V13H7V15H9V9H7M21,13V11H11V13H21M15,9H17V7H21V5H17V3H15V9Z" />
+								</svg>
+								<span class="sn-btn__label">controls</span>
+							</label>
+							<label
+								for="import-input"
+								id="import-button"
+								class="sn-btn sn-btn--ghost sn-btn--outlined"
+								title="import image from your computer"
+							>
+								<svg class="sn-btn__icon" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M12,10L8,14H11V20H13V14H16M19,4H5C3.89,4 3,4.9 3,6V18A2,2 0 0,0 5,20H9V18H5V8H19V18H15V20H19A2,2 0 0,0 21,18V6A2,2 0 0,0 19,4Z" />
+								</svg>
+								<span class="sn-btn__label">open image</span>
+							</label>
+							<button
+								id="cam-button"
+								class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label"
+								title="take photo with you web cam"
+								visibility="hidden"
+							>
+								<svg class="sn-btn__icon" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z" />
+								</svg>
+								<span class="sn-btn__label">take photo</span>
+							</button>
+							<div class="sn-btn__wrapper">
+								<label
+									id="export-button"
+									for="is-showing-download"
+									class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label"
+									title="download modified image to your device"
+									data-optional-label-size="l"
+								>
+									<svg class="sn-btn__icon" viewBox="0 0 24 24">
+										<path fill="currentColor" d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+									</svg>
+									<span class="sn-btn__label">download</span>
+								</label>
+							</div>
+							<label
+								id="imgur-button"
+								for="is-showing-share"
+								class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label"
+								title="share image via imgur.com"
+								data-optional-label-size="l"
+							>
+								<svg class="sn-btn__icon" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z" />
+								</svg>
+								<span class="sn-btn__label">share</span>
+							</label>
+							<label
+								id="imgur-button"
+								for="is-showing-intro"
+								class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label"
+								title="show more information about the project"
+							>
+								<svg class="sn-btn__icon" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+								</svg>
+								<span class="sn-btn__label">info</span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="sn-header__item sn-collapsible" data-collapsible-id="is-showing-download">
+					<div class="sn-toolbar sn-header__item__content sn-collapsible__content">
+						<div class="sn-toolbar__line">
+							<a
+								id="png-link"
+								download="triangulated-image.png"
+								target="_blank"
+								class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label sn-btn--center sn-btn--wide"
+							>
+								<svg class="sn-btn__icon" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M6.5 10.5H7.5V11.5H6.5V10.5M20 6V18C20 19.1 19.1 20 18 20H6C4.9 20 4 19.1 4 18V6C4 4.9 4.9 4 6 4H18C19.1 4 20 4.9 20 6M9 10.5C9 9.67 8.33 9 7.5 9H5V15H6.5V13H7.5C8.33 13 9 12.33 9 11.5V10.5M14 9H12.5V11.5L11.5 9H10V15H11.5V12.5L12.5 15H14V9M19 10.33C19 9.67 18.47 9 17.67 9H16.33C15.53 9 15 9.67 15 10.33V13.67C15 14.33 15.53 15 16.33 15H17.67C18.47 15 19 14.33 19 13.67V12H17.5V13.5H16.5V10.5H19V10.33Z" />
+								</svg>
+								<span class="sn-btn__label sn-btn__label">download bitmap</span>
+								<span class="sn-btn__shortlabel">(.png)</span>
+							</a>
+							<a
+								id="svg-link"
+								download="triangulated-image.svg"
+								target="_blank"
+								class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label sn-btn--center sn-btn--wide"
+							>
+								<svg class="sn-btn__icon" viewBox="0 0 24 24">
+									 <path fill="currentColor" d="M2 3V9H4.95L6.95 15H6V21H12V16.41L17.41 11H22V5H16V9.57L10.59 15H9.06L7.06 9H8V3M4 5H6V7H4M18 7H20V9H18M8 17H10V19H8Z" />
+								</svg>
+								<span class="sn-btn__label sn-btn__label">download vector</span>
+								<span class="sn-btn__shortlabel">(.svg)</span>
+								</a>
+						</div>
+					</div>
+				</div>
+				<div class="sn-header__item sn-collapsible" data-collapsible-id="is-showing-share">
+					<div class="sn-toolbar sn-share">
+						<div class="sn-share__step" data-share-step="form">
+							<div class="sn-toolbar__line sn-text">
+								<p>Click <strong>publish</strong> to upload your image to the image hosting platform <a href="https://imgur.com" target="_blank">imgur</a> and share the link. (for example on Twitter, Facebook or Reddit)</p>
+							</div>
+							<div class="sn-toolbar__line">
+								<label for="imgur-title" class="sn-toolbar__label">Image Title</label>
+								<input id="imgur-title" type="text" value="Triangulated Image" class="sn-input sn-input--stretch" />
+							</div>
+							<div class="sn-toolbar__line">
+								<label for="imgur-description" class="sn-toolbar__label">Image Description</label>
+								<input id="imgur-description" type="text" value="Created with snorpey's triangulation tool https://snorpey.github.io/triangulation" class="sn-input sn-input--stretch" />
+							</div>
+							<div class="sn-toolbar__line">
+								<button
+									id="share-upload-btn"
+									class="sn-btn sn-btn--ghost sn-btn--outlined"
+									target="_blank"
+									title="Upload your image to imgur"
+								>
+									<svg class="sn-btn__icon" viewBox="0 0 24 24">
+										    <path fill="currentColor" d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z" />
+									</svg>
+									<span class="sn-btn__label">publish image on imgur</span>
+								</button>
+							</div>
+						</div>
+						<div class="sn-share__step" data-share-step="loading">
+							<p class="sn-text">uploading…</p>
+						</div>
+						<div class="sn-share__step" data-share-step="share">
+							<div class="sn-toolbar__line">
+								<input id="imgur-url-input" type="text" readonly="readonly" class="sn-input sn-input--stretch" />
+								<a
+									id="imgur-url-link"
+									class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label"
+									href="https://imgur.com/"
+									target="_blank"
+									title="Open imgur URL of the generated image in an new tab"
+								>
+									<svg class="sn-btn__icon" viewBox="0 0 24 24">
+										<path fill="currentColor" d="M1,9H3V7H1V9M1,13H3V11H1V13M1,5H3V3A2,2 0 0,0 1,5M9,21H11V19H9V21M1,17H3V15H1V17M3,21V19H1A2,2 0 0,0 3,21M21,3H13V9H23V5A2,2 0 0,0 21,3M21,17H23V15H21V17M9,5H11V3H9V5M5,21H7V19H5V21M5,5H7V3H5V5M21,21A2,2 0 0,0 23,19H21V21M21,13H23V11H21V13M13,21H15V19H13V21M17,21H19V19H17V21Z" />
+									</svg>
+									<span class="sn-btn__label">open url in new tab</span>
+								</a>
+							</div>
+							<div class="sn-toolbar__line">
+								<button
+									id="native-share-btn"
+									class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label sn-btn--wide"
+									href="https://twitter.com/"
+									target="_blank"
+									title="post your image on twitter"
+									visibility="hidden"
+								>
+									<svg class="sn-btn__icon" viewBox="0 0 24 24">
+										<path fill="currentColor" d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z" />
+									</svg>
+									<span class="sn-btn__label">share with app</span>
+								</button>
+								<a
+									id="twitter-link"
+									class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label sn-btn--wide"
+									href="https://twitter.com/"
+									target="_blank"
+									title="post your image on twitter"
+								>
+									<svg class="sn-btn__icon" viewBox="0 0 24 24">
+										<path fill="currentColor" d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" />
+									</svg>
+									<span class="sn-btn__label">share on twitter</span>
+								</a>
+								<a
+									id="facebook-link"
+									class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label sn-btn--wide"
+									href="https://www.facebook.com/"
+									target="_blank"
+									title="post your image on facebook"
+								>
+									<svg class="sn-btn__icon" viewBox="0 0 24 24">
+										<path fill="currentColor" d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z" />
+									</svg>
+									<span class="sn-btn__label">share on facebook</span>
+								</a>
+								<a
+									id="reddit-link"
+									class="sn-btn sn-btn--ghost sn-btn--outlined sn-btn--optional-label sn-btn--wide"
+									href="https://www.reddit.com/"
+									target="_blank"
+									title="post your image on reddit"
+								>
+									<svg class="sn-btn__icon" viewBox="0 0 24 24">
+										<path fill="currentColor" d="M14.5 15.41C14.58 15.5 14.58 15.69 14.5 15.8C13.77 16.5 12.41 16.56 12 16.56C11.61 16.56 10.25 16.5 9.54 15.8C9.44 15.69 9.44 15.5 9.54 15.41C9.65 15.31 9.82 15.31 9.92 15.41C10.38 15.87 11.33 16 12 16C12.69 16 13.66 15.87 14.1 15.41C14.21 15.31 14.38 15.31 14.5 15.41M10.75 13.04C10.75 12.47 10.28 12 9.71 12C9.14 12 8.67 12.47 8.67 13.04C8.67 13.61 9.14 14.09 9.71 14.08C10.28 14.08 10.75 13.61 10.75 13.04M14.29 12C13.72 12 13.25 12.5 13.25 13.05S13.72 14.09 14.29 14.09C14.86 14.09 15.33 13.61 15.33 13.05C15.33 12.5 14.86 12 14.29 12M22 12C22 17.5 17.5 22 12 22S2 17.5 2 12C2 6.5 6.5 2 12 2S22 6.5 22 12M18.67 12C18.67 11.19 18 10.54 17.22 10.54C16.82 10.54 16.46 10.7 16.2 10.95C15.2 10.23 13.83 9.77 12.3 9.71L12.97 6.58L15.14 7.05C15.16 7.6 15.62 8.04 16.18 8.04C16.75 8.04 17.22 7.57 17.22 7C17.22 6.43 16.75 5.96 16.18 5.96C15.77 5.96 15.41 6.2 15.25 6.55L12.82 6.03C12.75 6 12.68 6.03 12.63 6.07C12.57 6.11 12.54 6.17 12.53 6.24L11.79 9.72C10.24 9.77 8.84 10.23 7.82 10.96C7.56 10.71 7.2 10.56 6.81 10.56C6 10.56 5.35 11.21 5.35 12C5.35 12.61 5.71 13.11 6.21 13.34C6.19 13.5 6.18 13.62 6.18 13.78C6.18 16 8.79 17.85 12 17.85C15.23 17.85 17.85 16.03 17.85 13.78C17.85 13.64 17.84 13.5 17.81 13.34C18.31 13.11 18.67 12.6 18.67 12Z" />
+									</svg>
+									<span class="sn-btn__label">share on reddit</span>
+								</a>
+							</div>
+							<div class="sn-toolbar__line">
+								<button
+									id="start-over-btn"
+									class="sn-btn sn-btn--ghost sn-btn--outlined"
+									title="restart upload"
+									data-callback="startover"
+								>
+									<svg class="sn-btn__icon" viewBox="0 0 24 24">
+										<path fill="currentColor" d="M2 12C2 16.97 6.03 21 11 21C13.39 21 15.68 20.06 17.4 18.4L15.9 16.9C14.63 18.25 12.86 19 11 19C4.76 19 1.64 11.46 6.05 7.05C10.46 2.64 18 5.77 18 12H15L19 16H19.1L23 12H20C20 7.03 15.97 3 11 3C6.03 3 2 7.03 2 12Z" />
+									</svg>
+									<span class="sn-btn__label">start over</span>
+								</button>
+							</div>
+						</div>
+						<div class="sn-share__step" data-share-step="error">
+							<div class="sn-toolbar__line">
+								<div class="sn-text">
+									<span id="imgur-url-error">unfortunately, something went wrong when uploading your image. maybe try again?</span>
+								</div>
+							</div>
+							<div class="sn-toolbar__line">
+								<button
+									id="start-over-btn-2"
+									class="sn-btn sn-btn--ghost sn-btn--outlined"
+									title="restart upload"
+									data-callback="startover"
+								>
+									<svg class="sn-btn__icon" viewBox="0 0 24 24">
+										<path fill="currentColor" d="M2 12C2 16.97 6.03 21 11 21C13.39 21 15.68 20.06 17.4 18.4L15.9 16.9C14.63 18.25 12.86 19 11 19C4.76 19 1.64 11.46 6.05 7.05C10.46 2.64 18 5.77 18 12H15L19 16H19.1L23 12H20C20 7.03 15.97 3 11 3C6.03 3 2 7.03 2 12Z" />
+									</svg>
+									<span class="sn-btn__label">start over</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+					<!-- <button id="cam-button" class="button" title="take photo with you web cam">take photo</button>
+					<button id="import-button" class="button" title="open image from your computer">open image</button>
+					<input type="file" id="import-input" accept="image/*" />
+					<button id="export-button" class="button">download image</button>
+					<button id="imgur-button" class="button" title="share image via imgur.com"><span>share image</span></button>
+					<a id="png-link" download="triangulated-image.png" target="_blank" class="download-link">download bitmap<span> (.png)</span></a>
+					<a id="svg-link" download="triangulated-image.svg" target="_blank" class="download-link">download vector<span> (.svg)</span></a>
+					<div id="imgur-url-container">
+						<input id="imgur-url-input" type="text" readonly="readonly" />
+						<a id="imgur-url-link" class="button social-link" href="https://imgur.com/" target="_blank">open</a>
+						<a id="twitter-link" class="button social-link" href="https://twitter.com/" target="_blank" title="post your image on twitter">twitter</a>
+						<a id="facebook-link" class="button social-link" href="https://www.facebook.com/" target="_blank" title="post your image on facebook">facebook</a>
+						<a id="reddit-link" class="button social-link" href="https://www.reddit.com/" target="_blank" title="post your image on reddit">reddit</a>
+						<span id="imgur-url-error">sorry, something went wrong. maybe try again?</span>
+					</div> -->
+					<!-- <button class="intro-button button is-active">?</button> -->
+				<!-- </div> -->
+			</div>
+			<div class="sn-controls">
+				<div class="sn-controls__items" id="controls">
+					<div class="sn-control sn-controls__item">
+						<label class="sn-control__label" for="blur-number">blur</label>
+						<input class="sn-control__input sn-control__input--number" data-control-id="blur" id="blur-number" type="number" min="0" max="99" value="50" maxlength="2" />
+						<input class="sn-control__input sn-control__input--slider" data-control-id="blur" id="blur-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+					</div>
+					<div class="sn-control sn-controls__item">
+						<label class="sn-control__label" for="accuracy-number">accuracy</label>
+						<input class="sn-control__input sn-control__input--number" data-control-id="accuracy" id="accuracy-number" type="number" min="0" max="99" value="50" maxlength="2" />
+						<input class="sn-control__input sn-control__input--slider" data-control-id="accuracy" id="accuracy-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+					</div>
+					<div class="sn-control sn-controls__item">
+						<label class="sn-control__label" for="vertex-count">point count</label>
+						<input class="sn-control__input sn-control__input--number" data-control-id="vertex-count" id="vertex-count-number" type="number" min="0" max="99" value="50" maxlength="6" />
+						<input class="sn-control__input sn-control__input--slider" data-control-id="vertex-count" id="vertex-count-slider" type="range" min="0" max="99" value="50" step="1" maxlength="2" />
+					</div>
+					<div class="sn-control sn-controls__item">
+						<label class="sn-control__label" for="stroke-width">stroke width</label>
+						<input class="sn-control__input sn-control__input--number" data-control-id="stroke-width" id="stroke-width-number" type="number" min="0" max="99" value="1" maxlength="2" />
+						<input class="sn-control__input sn-control__input--slider" data-control-id="stroke-width" id="stroke-width-slider" type="range" min="0" max="99" value="1" step="1" maxlength="2" />
+					</div>
+					<div class="sn-control sn-controls__item">
+						<label class="sn-control__label sn-control__label--checkbox" for="fill-input"><input class="sn-control__input sn-control__input--checkbox" type="checkbox" id="fill-input" data-control-id="fill" checked="checked" /> fill polygons</label>
+						<label class="sn-control__label sn-control__label--checkbox" for="gradients-input"><input class="sn-control__input sn-control__input--checkbox" type="checkbox" data-control-id="gradients" id="gradients-input" /> gradients</label>
+						<button id="random-button" class="sn-btn" title="randomise input values">
+							<svg class="sn-btn__icon" viewBox="0 0 24 24">
+								<path fill="currentColor" d="M14 8C13.45 8 13 7.55 13 7S13.45 6 14 6C14.55 6 15 6.45 15 7C15 7.55 14.55 8 14 8M12 12V19H5V12H12M12.78 10H4.22C3.55 10 3 10.55 3 11.22V19.78C3 20.45 3.55 21 4.22 21H12.78C13.45 21 14 20.45 14 19.78V11.22C14 10.55 13.45 10 12.78 10M19.78 3H11.22C10.55 3 10 3.55 10 4.22V8H12V5H19V12H16V14H19.78C20.45 14 21 13.45 21 12.78V4.22C21 3.55 20.45 3 19.78 3M17 8C16.45 8 16 7.55 16 7S16.45 6 17 6C17.55 6 18 6.45 18 7C18 7.55 17.55 8 17 8M17 11C16.45 11 16 10.55 16 10S16.45 9 17 9C17.55 9 18 9.45 18 10C18 10.55 17.55 11 17 11M7 15C6.45 15 6 14.55 6 14S6.45 13 7 13C7.55 13 8 13.45 8 14C8 14.55 7.55 15 7 15M10 18C9.45 18 9 17.55 9 17S9.45 16 10 16C10.55 16 11 16.45 11 17C11 17.55 10.55 18 10 18" />
+								</svg>
+							<span class="sn-btn__label">randomise</span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="sn-workspace">
+				<div class="sn-workspace__canvas-wrapper">
+					<canvas id="canvas" class="sn-workspace__canvas"></canvas>
+				</div>
+				<article class="sn-intro" data-input-id="is-showing-intro">
+					<div class="sn-text">
+						<p>drop an image in the browser to triangulate it.</p>
+						<p>this script uses the <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation" title="Wikipedia article on Delaunay Triangulation">delaunay triangulation</a> algorithm. it is based on the <a href="http://jsdo.it/akm2/xoYx" title="Triangulation Image Generator on jsdo.it">triangulation image generator</a> and includes some speed improvements. this experiment was created by <a href="http://fishnation.de">georg</a>. you can follow him on <a href="https://twitter.com/snorpey">twitter</a> or explore the source code on <a href="https://github.com/snorpey/triangulation">github</a>.</p>
+						<p>if you like this one, you can check out some of his other javascript experiments on <a href="http://snorpey.github.io/experiments/">github</a>.</p>
+						<label for="is-showing-intro" class="sn-btn sn-btn--ghost sn-intro__close-btn sn-btn--outlined sn-btn--small" title="Close Description">✕</label>
+					</div>
+				</article>
+			</div>
+			<div class="sn-overlay sn-overlay--cam" aria-hidden="true">
+				<div class="sn-cam">
+					<div class="sn-cam__video-wrapper">
+						<video class="sn-cam__video" id="cam_video" playsinline muted autoplay></video>
+					</div>
+					<div class="sn-cam__controls">
+						<button class="sn-btn" id="cam_shutter" title="Take Picture">
+							<svg class="sn-btn__icon" viewBox="0 0 24 24">
+								<path fill="currentColor" d="M13.73,15L9.83,21.76C10.53,21.91 11.25,22 12,22C14.4,22 16.6,21.15 18.32,19.75L14.66,13.4M2.46,15C3.38,17.92 5.61,20.26 8.45,21.34L12.12,15M8.54,12L4.64,5.25C3,7 2,9.39 2,12C2,12.68 2.07,13.35 2.2,14H9.69M21.8,10H14.31L14.6,10.5L19.36,18.75C21,16.97 22,14.6 22,12C22,11.31 21.93,10.64 21.8,10M21.54,9C20.62,6.07 18.39,3.74 15.55,2.66L11.88,9M9.4,10.5L14.17,2.24C13.47,2.09 12.75,2 12,2C9.6,2 7.4,2.84 5.68,4.25L9.34,10.6L9.4,10.5Z" />
+							</svg>
+						</button>
+						<button class="sn-btn" title="Close camera" id="cam_close">
+							<svg class="sn-btn__icon" viewBox="0 0 24 24">
+								<path fill="currentColor" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+							</svg>
+						</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script src="assets/js/main.js" type="module"></script>
 	</body>
 </html>

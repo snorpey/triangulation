@@ -1,0 +1,17 @@
+.sn-header {
+	background-color: var(--color--foreground--active);
+	color: var(--color--background);
+	position: relative;
+	z-index: 2;
+}
+
+.sn-header__item {
+	padding-left: var(--size-2);
+	padding-right: var(--size-2);
+	padding-bottom: var(--size-1);
+}
+
+.sn-header__item--primary {
+	padding-top: var(--size-2);
+	padding-bottom: 0;
+}

@@ -1,0 +1,18 @@
+.sn-overlay {
+	position: fixed;
+	z-index: 10;
+	top: calc(var(--size-1) * 6.5);
+	left: 0;
+	height: calc(100vh - var(--size-1) * 6.5);
+	background-color: var(--color--foreground--active);
+	width: 100%;
+}
+
+.sn-overlay[aria-hidden="true"] {
+	display: none;
+}
+
+.sn-overlay__container--open {
+	overflow: hidden;
+	max-height: 100vh;
+}

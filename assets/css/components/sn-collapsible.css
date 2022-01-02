@@ -1,0 +1,32 @@
+.sn-collapsible {
+	overflow: hidden;
+	transition: all 0.4s ease;
+	max-height: 0;
+	background-color: var(--color--foreground--active-hover);
+	padding-top: 0;
+	padding-bottom: 0;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+}
+
+.sn-collapsible.sn-collapsible--open,
+#is-showing-download:checked ~ * .sn-collapsible[data-collapsible-id="is-showing-download"],
+#is-showing-share:checked ~ * .sn-collapsible[data-collapsible-id="is-showing-share"] {
+	max-height: var(--sn-collapsible--height, 300px);
+	margin-top: var(--size-0_125);
+}
+#is-showing-share:checked ~ * .sn-collapsible[data-collapsible-id="is-showing-share"] {
+	max-height: var(--sn-collapsible--height, 380px);
+}
+
+.sn-collapsible.sn-collapsible--open:not(:last-child) {
+	margin-bottom: var(--size-2);
+}
+
+.sn-collapsible .sn-collapsible__content {
+	padding-top: var(--size-2);
+	padding-bottom: var(--size-2);
+}
+

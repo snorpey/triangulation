@@ -1,0 +1,56 @@
+.sn-control {
+	display: flex;
+	width: 100%;
+}
+
+.sn-control__label {
+	display: block;
+	width: 13ch;
+}
+
+@media screen and (min-width: 1600px) {
+	.sn-control__label {
+		display: flex;
+		align-items: center;
+	}
+}
+
+.sn-control__label--checkbox {
+	display: flex;
+	width: 100%;
+	align-items: center;
+}
+
+.sn-control__label--checkbox .sn-control__input {
+	margin-right: var(--size-2);
+}
+
+.sn-control__label + * {
+	margin-left: var(--size-2);
+}
+
+.sn-control__input {
+	display: block;
+}
+
+.sn-control__input + * {
+	margin-left: var(--size-2);
+}
+
+.sn-control__input--number {
+	width: 7ch;
+}
+
+.sn-control__input--slider {
+	width: 100%;
+	flex-shrink: 2;
+}
+
+
+.sn-controls__items {
+
+}
+
+.sn-controls__item {
+
+}
