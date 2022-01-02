@@ -26,7 +26,7 @@ export class ShareUI {
 		this.nativeShareBtnEl = document.getElementById( 'native-share-btn' );
 
 		if ( hasShareAPI ) {
-			this.nativeShareBtnEl.classList.removeAttribute( 'visibility', 'hidden' );
+			this.nativeShareBtnEl.removeAttribute( 'visibility', 'hidden' );
 			this.nativeShareBtnEl.addEventListener( 'click', () => this.shareNatively() );
 		}
 
