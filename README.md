@@ -19,20 +19,18 @@ if you're a developer and just interested in the code for the triangulation effe
 build script
 ---
 
-the build script takes care of concatenating and minifying all scripts and styles. it uses [gruntjs](http://gruntjs.com/).
+the build script takes care of concatenating and minifying all scripts and styles. it uses [rollup](http://rollupjs.org/) and [postcss](https://postcss.org/).
 
-please make sure that both [nodejs](http://nodejs.org/) and grunt-cli are [set up properly](http://gruntjs.com/getting-started) on your machine.
+please make sure that both [nodejs](http://nodejs.org/) is installed on your machine.
 
 run ```npm install``` from within the ```build/``` folder to install the dependencies of the build script.
 
-to build, run ```grunt production``` from within the ```build/``` folder. the optimized files will get copied to the ```production/``` folder.
+to build, run ```npm run build```. the optimized files will get copied to the ```dist/``` folder.
 
 third party code used in this experiment
 ---
-* [js signals](http://millermedeiros.github.io/js-signals/) by [millermedeiros](https://github.com/millermedeiros), MIT license
-* [require js](http://requirejs.org/), by [jrburke](jrburke), BSD & MIT license
-* [reqwest js](https://github.com/ded/reqwest/), by [ded](https://github.com/ded), MIT license
 * [triangulate-image](https://github.com/snorpey/triangulate-image), by [snorpey](https://github.com/snorpey), MIT license
+* [eventbus](https://github.com/tbreuss/eventbus), by [tbreuss](https://github.com/tbreuss), BSD Clause license
 
 license
 ---

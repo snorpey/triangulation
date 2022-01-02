@@ -1,14 +1,19 @@
 {
 	"name": "triangulation-build",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"devDependencies": {
-		"grunt": "^1.4.1",
-		"grunt-contrib-copy": "^1.0.0",
-		"grunt-contrib-cssmin": "^3.0.0",
-		"grunt-contrib-imagemin": "^4.0.0",
-		"grunt-contrib-requirejs": "^1.0.0"
+		"@rollup/plugin-buble": "^0.21.3",
+		"@rollup/plugin-replace": "^3.0.0",
+		"glob": "^7.2.0",
+		"mkdirp": "^1.0.4",
+		"postcss": "^8.4.5",
+		"postcss-clean": "^1.2.2",
+		"postcss-import": "^14.0.2",
+		"rollup": "^2.58.0",
+		"ssri": "^8.0.1",
+		"uglify-js": "^3.14.2"
 	},
 	"scripts": {
-		"build": "grunt --gruntfile build/Gruntfile.js"
+		"build": "node ./build.js"
 	}
 }
