@@ -71,6 +71,8 @@ function build ( srcPath, distPath, moduleName, mainJSFile ) {
 			// 		stylesStr
 			// 	};
 			// } );
+			
+			return { stylesStr };
 		} )
 		.then( ( { stylesStr/*, es5Hash, es6Hash*/ } ) => {
 			const htmlReplacements = {
