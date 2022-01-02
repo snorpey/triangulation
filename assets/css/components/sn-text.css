@@ -1,0 +1,29 @@
+.sn-text {
+	font-size: var(--font-size-l);
+	line-height: 1.5;
+}
+
+
+.sn-text h1 {
+	font-size: var(--font-size-l);
+	font-weight: normal;
+}
+
+.sn-text h1 + * {
+	margin-top: 1em;
+}
+
+.sn-text p + p {
+	margin-top: 0.5em;
+}
+
+.sn-text a {
+	color: var(--color--highlight);
+	text-decoration: none;
+}
+
+@media screen and (pointer: fine) {
+	.sn-text a:hover {
+		text-decoration: underline;
+	}
+}

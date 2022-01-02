@@ -1,0 +1,24 @@
+.sn-intro {
+	background-color: rgba(255, 255, 255, 0.7);
+	padding: var(--size-2);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	transition: all 0.3s ease;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(100%);
+}
+
+#is-showing-intro:checked ~ * .sn-intro {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0)
+}
+
+.sn-intro__close-btn {
+	position: absolute;
+	top: var(--size-1);
+	right: var(--size-1)
+}
