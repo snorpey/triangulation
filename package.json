@@ -3,7 +3,6 @@
 	"version": "0.0.2",
 	"devDependencies": {
 		"@rollup/plugin-buble": "^0.21.3",
-		"@rollup/plugin-replace": "^3.0.0",
 		"cssnano": "^5.1.11",
 		"glob": "^7.2.0",
 		"mkdirp": "^1.0.4",

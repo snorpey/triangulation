@@ -3,7 +3,6 @@ const path = require('path');
 const { rollup } = require('rollup');
 const buble = require('@rollup/plugin-buble');
 const UglifyJS = require('uglify-js');
-const replace = require('@rollup/plugin-replace');
 const mkdirp = require('mkdirp');
 const glob = require('glob');
 // const ssri = require( 'ssri' );
@@ -306,12 +305,7 @@ function processCSSFile(filePath) {
 			});
 		})
 		.then(res => {
-			const fileName = getFileName(filePath, false).replace(
-				'.css',
-				'.min.css'
-			);
 			const fileContent = res.css.replace(/\(..\/..\//gm, '(../');
-
 			return fileContent;
 		});
 }
