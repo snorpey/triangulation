@@ -11,7 +11,7 @@
 	transform: translateY(100%);
 }
 
-#is-showing-intro:checked ~ * .sn-intro {
+#is-showing-intro:checked~* .sn-intro {
 	opacity: 1;
 	visibility: visible;
 	transform: translateY(0)

@@ -25,7 +25,7 @@
 	margin-right: var(--size-2);
 }
 
-.sn-control__label + * {
+.sn-control__label+* {
 	margin-left: var(--size-2);
 }
 
@@ -33,7 +33,7 @@
 	display: block;
 }
 
-.sn-control__input + * {
+.sn-control__input+* {
 	margin-left: var(--size-2);
 }
 
@@ -44,13 +44,4 @@
 .sn-control__input--slider {
 	width: 100%;
 	flex-shrink: 2;
-}
-
-
-.sn-controls__items {
-
-}
-
-.sn-controls__item {
-
 }

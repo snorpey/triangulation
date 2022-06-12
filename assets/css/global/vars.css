@@ -2,7 +2,7 @@
 	--color--foreground: #666;
 	--color--foreground--active: #333;
 	--color--foreground--active-hover: #000;
-	--color--foreground--active-hover-80: rgba(0,0, 0, 0.8);
+	--color--foreground--active-hover-80: rgba(0, 0, 0, 0.8);
 	--color--foreground--disabled: #999;
 	--color--background: #fff;
 	--color--background--active: #ddd;
@@ -25,7 +25,7 @@
 	--size-8: calc(var(--size-1) * 8);
 
 	--font-size: var(--size-1_75);
-	
+
 	--font-size-l: var(--size-2);
 	--font-size-s: var(--size-1_375);
 	--font-family: sans-serif;

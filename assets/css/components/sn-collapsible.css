@@ -12,12 +12,13 @@
 }
 
 .sn-collapsible.sn-collapsible--open,
-#is-showing-download:checked ~ * .sn-collapsible[data-collapsible-id="is-showing-download"],
-#is-showing-share:checked ~ * .sn-collapsible[data-collapsible-id="is-showing-share"] {
+#is-showing-download:checked~* .sn-collapsible[data-collapsible-id="is-showing-download"],
+#is-showing-share:checked~* .sn-collapsible[data-collapsible-id="is-showing-share"] {
 	max-height: var(--sn-collapsible--height, 300px);
 	margin-top: var(--size-0_125);
 }
-#is-showing-share:checked ~ * .sn-collapsible[data-collapsible-id="is-showing-share"] {
+
+#is-showing-share:checked~* .sn-collapsible[data-collapsible-id="is-showing-share"] {
 	max-height: var(--sn-collapsible--height, 380px);
 }
 
@@ -29,4 +30,3 @@
 	padding-top: var(--size-2);
 	padding-bottom: var(--size-2);
 }
-

@@ -81,7 +81,7 @@
 		/* width: 100%; */
 	}
 
-	.sn-share__step[data-share-step="form"] > * {
+	.sn-share__step[data-share-step="form"]>* {
 		margin-top: 0;
 		margin-left: 0;
 	}

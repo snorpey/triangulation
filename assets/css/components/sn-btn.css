@@ -76,16 +76,16 @@
 	}
 }
 
-.sn-btn__icon + .sn-btn__label {
+.sn-btn__icon+.sn-btn__label {
 	margin-left: var(--size-1_5);
 }
 
-.sn-btn--optional-icon .sn-btn__icon + .sn-btn__label {
+.sn-btn--optional-icon .sn-btn__icon+.sn-btn__label {
 	margin-left: 0;
 }
 
 @media screen and (min-width: 640px) {
-	.sn-btn--optional-icon .sn-btn__icon + .sn-btn__label {
+	.sn-btn--optional-icon .sn-btn__icon+.sn-btn__label {
 		margin-left: var(--size-1_5);
 	}
 }
@@ -118,7 +118,7 @@
 	display: inline-block
 }
 
-.sn-btn__label + .sn-btn__shortlabel {
+.sn-btn__label+.sn-btn__shortlabel {
 	margin-left: var(--size-1);
 }
 
@@ -135,10 +135,10 @@
 	left: -200%;
 }
 
-#is-showing-download:checked ~ * .sn-btn[for="is-showing-download"],
-#is-showing-share:checked ~ * .sn-btn[for="is-showing-share"],
-#is-showing-intro:checked ~ * .sn-btn[for="is-showing-intro"],
-#is-showing-controls:checked ~ * .sn-btn[for="is-showing-controls"] {
+#is-showing-download:checked~* .sn-btn[for="is-showing-download"],
+#is-showing-share:checked~* .sn-btn[for="is-showing-share"],
+#is-showing-intro:checked~* .sn-btn[for="is-showing-intro"],
+#is-showing-controls:checked~* .sn-btn[for="is-showing-controls"] {
 	background-color: var(--color--background);
 	color: var(--color--foreground);
 }

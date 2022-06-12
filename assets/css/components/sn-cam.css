@@ -20,11 +20,6 @@
 	max-height: 100%;
 }
 
-.sn-cam__controls {
-	/* position: relative;
-	z-index: 2; */
-}
-
 #cam_close {
 	position: absolute;
 	top: var(--size-4);

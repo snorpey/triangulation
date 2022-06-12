@@ -15,6 +15,7 @@
 	grid-template-columns: repeat(var(--cols), 1fr);
 	margin-left: 0;
 }
+
 .sn-toolbar__line--grid--3-cols {
 	--cols: 3;
 }
@@ -24,12 +25,13 @@
 		--cols: 4;
 	}
 }
-.sn-toolbar__line:not(.sn-toolbar__line--grid) > * {
+
+.sn-toolbar__line:not(.sn-toolbar__line--grid)>* {
 	margin-top: var(--size-1);
 	margin-left: var(--size-1);
 }
 
-.sn-toolbar__line + .sn-toolbar__line {
+.sn-toolbar__line+.sn-toolbar__line {
 	margin-top: var(--size-1);
 }
 
